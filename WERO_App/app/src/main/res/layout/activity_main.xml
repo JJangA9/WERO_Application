@@ -4,15 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#efefef"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!--
+        <Button
+            android:id="@+id/my_diary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/postbox"
+            android:background="#00ff0000"
+            android:text="@string/my_diary"
+            android:fontFamily="@font/ridibatang"
+            android:textColor="#707070"/>
+        <Button
+            android:id="@+id/postbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="#00ff0000"
+            android:text="@string/postbox"
+            android:fontFamily="@font/ridibatang"
+            android:textColor="#707070"/>
+        <Button
+            android:id="@+id/every_wero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/postbox"
+            android:background="#00ff0000"
+            android:text="@string/every_wero"
+            android:fontFamily="@font/ridibatang"
+            android:textColor="#707070"/>
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/every_wero"
+            android:background="#707070" />-->
+        <!-- activity_screen_slide.xml -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:background="#efefef"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab_layout"/>
+    </RelativeLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
