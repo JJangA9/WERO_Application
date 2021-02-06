@@ -7,57 +7,58 @@
     android:background="#efefef"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!--
-        <Button
-            android:id="@+id/my_diary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/postbox"
-            android:background="#00ff0000"
-            android:text="@string/my_diary"
-            android:fontFamily="@font/ridibatang"
-            android:textColor="#707070"/>
-        <Button
-            android:id="@+id/postbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="#00ff0000"
-            android:text="@string/postbox"
-            android:fontFamily="@font/ridibatang"
-            android:textColor="#707070"/>
-        <Button
-            android:id="@+id/every_wero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/postbox"
-            android:background="#00ff0000"
-            android:text="@string/every_wero"
-            android:fontFamily="@font/ridibatang"
-            android:textColor="#707070"/>
-        <View
-            android:id="@+id/line"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/every_wero"
-            android:background="#707070" />-->
-        <!-- activity_screen_slide.xml -->
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/app_name"
+                android:fontFamily="@font/ridibatang"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+        </androidx.appcompat.widget.Toolbar>
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             android:background="#efefef"
             android:layout_width="match_parent"
-            android:layout_height="50dp"/>
+            android:layout_height="45dp"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="#707070"
+            app:tabIndicatorColor="#efefef"
+            app:tabTextAppearance="@style/tab_text"/>
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="#707070" />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tab_layout"/>
-    </RelativeLayout>
+            android:layout_height="match_parent"/>
+    </LinearLayout>
 
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/abc_vector_test"
+        android:contentDescription="@string/write_diary"
+        android:layout_margin="16dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

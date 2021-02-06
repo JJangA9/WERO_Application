@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:background="#efefef">
 
-        <TextView style="?android:textAppearanceMedium"
+        <TextView
             android:padding="16dp"
             android:lineSpacingMultiplier="1.2"
             android:layout_width="match_parent"
