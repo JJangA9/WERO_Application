@@ -4,19 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- fragment_screen_slide_page.xml -->
-    <ScrollView
+    <LinearLayout
         android:id="@+id/my_diary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#efefef">
+        android:padding="10dp">
 
-        <TextView style="?android:textAppearanceMedium"
-            android:padding="16dp"
-            android:lineSpacingMultiplier="1.2"
+        <ListView
+            android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="mydiary"
-            android:textColor="@color/black"/>
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_margin="15dp"
+            android:padding="10dp"/>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
