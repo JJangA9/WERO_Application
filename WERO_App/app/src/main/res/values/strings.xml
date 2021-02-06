@@ -4,6 +4,8 @@
     <string name="my_diary">나의 이야기</string>
     <string name="postbox">우편함</string>
     <string name="every_wero">모두의 위로</string>
+    <color name="mainColor">#efefef</color>
 
     <string name="write_diary">일기 쓰기</string>
+
 </resources>
