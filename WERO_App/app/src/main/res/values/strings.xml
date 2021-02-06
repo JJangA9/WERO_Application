@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">WERO_App</string>
+
+    <string name="my_diary">나의 이야기</string>
+    <string name="postbox">우편함</string>
+    <string name="every_wero">모두의 위로</string>
 </resources>
