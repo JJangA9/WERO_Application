@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="새로운 일기를 등록해주세요"
+        android:textSize="13sp"
+        android:lineSpacingExtra="5dp"
         android:background="@drawable/edit_border_circle"
         android:padding="20dp"/>
 

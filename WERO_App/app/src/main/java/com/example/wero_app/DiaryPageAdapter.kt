@@ -23,7 +23,7 @@ class DiaryPageAdapter(val context: Context, val replyRecycler : ArrayList<Diary
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val letter = itemView?.findViewById<TextView>(R.id.txt_content)
+        private val letter = itemView?.findViewById<TextView>(R.id.txt_content)
 
         fun bind(replyItem : DiaryPageRecyclerViewItem, context: Context) {
             letter.text = replyItem.letter

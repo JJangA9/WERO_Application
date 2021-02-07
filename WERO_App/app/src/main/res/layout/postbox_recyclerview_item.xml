@@ -49,6 +49,7 @@
         android:padding="15dp"
         android:layout_marginTop="5dp"
         android:lineSpacingExtra="5dp"
+        android:textColor="@color/subColor"
         android:background="@drawable/postbox_textview_edge"
         app:layout_constraintTop_toBottomOf="@id/mailImage"/>
 

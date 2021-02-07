@@ -45,8 +45,11 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginBottom="25dp"
-            android:background="@drawable/postbox_textview_edge"
-            android:padding="15dp" />
+            android:paddingTop="20dp"
+            android:paddingRight="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="25dp"
+            android:background="@drawable/postbox_textview_edge" />
 
 
     </RelativeLayout>

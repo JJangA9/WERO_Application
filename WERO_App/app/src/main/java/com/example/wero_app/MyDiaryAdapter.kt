@@ -29,8 +29,8 @@ class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<MyDiary
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val date = itemView?.findViewById<TextView>(R.id.txt_date)
-        val diary = itemView?.findViewById<TextView>(R.id.txt_content)
+        private val date = itemView.findViewById<TextView>(R.id.txt_date)
+        private val diary = itemView.findViewById<TextView>(R.id.txt_content)
 
         fun bind(listener: View.OnClickListener, diaryItem: MyDiaryRecyclerViewItem, context: Context) {
             date.text = diaryItem.date
