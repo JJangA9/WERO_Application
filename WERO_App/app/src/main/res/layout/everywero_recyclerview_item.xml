@@ -2,10 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp"
-    android:paddingStart="20dp"
-    android:paddingEnd="20dp"
+    android:padding="25dp"
     android:background="@color/mainColor"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -39,11 +36,12 @@
         app:layout_constraintLeft_toRightOf="@id/nickName"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btn_heart"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/everywero_imagebutton"
+        android:layout_marginEnd="5dp"
+        android:background="@drawable/everywero_heartbutton"
         app:layout_constraintRight_toLeftOf="@id/heartNumber"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -52,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="21"
+        android:layout_marginTop="5dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
