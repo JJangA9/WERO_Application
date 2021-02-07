@@ -20,50 +20,42 @@
                 android:textSize="25sp"
                 android:textStyle="bold"/>
         </androidx.appcompat.widget.Toolbar>
-        <Button
-            android:id="@+id/txt_date"
-            android:layout_width="wrap_content"
+
+        <TextView
+            android:id="@+id/txt_content"
+            android:background="@color/white"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_below="@+id/toolbar"
-            android:textColor="@color/black"
-            android:text="test_date"/>
+            android:padding="15dp"
+            android:text="text_test_content"/>
         <EditText
-            android:id="@+id/edit_content"
+            android:id="@+id/edit_reply"
             android:background="@drawable/edit_border"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="350dp"
             android:gravity="top"
+            android:layout_marginTop="25dp"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
             android:padding="15dp"
-            android:layout_below="@+id/txt_date"
+            android:layout_below="@+id/txt_content"
             android:lineSpacingExtra="5dp"
             android:fontFamily="@font/ridibatang"
             android:textSize="15sp"
             android:textColor="@color/subColor"
-            android:hint="test_content"/>
-
+            android:hint="test_reply"/>
         <Button
-            android:id="@+id/btn_save"
+            android:id="@+id/btn_send"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_content"
+            android:layout_below="@+id/edit_reply"
             android:layout_centerHorizontal="true"
             android:textSize="20sp"
-            android:text="@string/save" />
-        <CheckBox
-            android:id="@+id/checkbox_want_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_save"
-            android:layout_centerHorizontal="true"
-            android:checked="true"
-            android:buttonTint="@color/subColor"
-            android:textColor="@color/subColor"
-            android:text="@string/want_send"/>
-
+            android:text="@string/send" />
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

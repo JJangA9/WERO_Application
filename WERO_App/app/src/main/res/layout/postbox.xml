@@ -6,6 +6,7 @@
         android:id="@+id/postbox"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+<<<<<<< Updated upstream
         android:background="#efefef">
 
         <TextView
@@ -15,5 +16,8 @@
             android:layout_height="wrap_content"
             android:text="postbox" />
     </ScrollView>
+=======
+        app:layout_constraintTop_toTopOf="parent"/>
+>>>>>>> Stashed changes
 
 </androidx.constraintlayout.widget.ConstraintLayout>

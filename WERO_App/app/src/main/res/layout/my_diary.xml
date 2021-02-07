@@ -1,23 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- fragment_screen_slide_page.xml -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/my_diary"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <ListView
-            android:id="@+id/list_view"
+        <TextView
+            android:id="@+id/txt_yymm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_toStartOf="@+id/imgbtn_calender"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:text="test_yy_mm" />
+
+        <ImageButton
+            android:id="@+id/imgbtn_calender"
+            android:background="@android:color/transparent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_alignRight="@+id/recycler_diary"
+            android:layout_alignBottom="@+id/txt_yymm"
+            android:scaleType="fitCenter"
+            android:src="@drawable/calendar" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_diary"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
-            android:layout_margin="15dp"
-            android:padding="10dp"/>
+            android:layout_below="@+id/txt_yymm"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/postbox_textview_edge"
+            android:padding="15dp" />
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
