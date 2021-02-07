@@ -1,4 +1,4 @@
 package com.example.wero_app
 
-class EveryWeroRecyclerViewItem {
+class EveryWeroRecyclerViewItem(val nickName: String, val letter: String, val heartNum: String) {
 }
