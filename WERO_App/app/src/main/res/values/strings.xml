@@ -8,4 +8,16 @@
 
     <string name="write_diary">일기 쓰기</string>
 
+    <string name="save">저장하기</string>
+    <string name="want_send">편지 보낼래요!</string>
+
+    <string name="send">답장하기</string>
+
+    <string name="email">이메일</string>
+    <string name="password">비밀번호</string>
+    <string name="register">계정 만들기</string>
+    <string name="find_password">비밀번호 찾기</string>
+    <string name="login">로그인</string>
+
+    <string name="reply">답장</string>
 </resources>

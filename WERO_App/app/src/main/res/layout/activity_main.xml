@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#efefef"
+    android:background="@color/mainColor"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             app:tabSelectedTextColor="@color/black"
-            app:tabTextColor="#707070"
+            app:tabTextColor="@color/subColor"
             app:tabIndicatorColor="#efefef"
             app:tabTextAppearance="@style/tab_text"/>
         <View
@@ -40,7 +40,7 @@
             android:layout_height="1dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="#707070" />
+            android:background="@color/subColor" />
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
             android:layout_width="match_parent"
