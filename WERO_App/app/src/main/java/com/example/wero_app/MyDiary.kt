@@ -1,18 +1,23 @@
 package com.example.wero_app
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.contracts.contract
 
 class MyDiary : Fragment() {
+
     lateinit var mcontext: Context
     var diaryList = arrayListOf<MyDiaryRecyclerViewItem>()
 
@@ -43,9 +48,13 @@ class MyDiary : Fragment() {
         mRecyclerview.layoutManager = lm
         mRecyclerview.setHasFixedSize(true)
 
+        val imageButton = view.findViewById<ImageButton>(R.id.imgbtn_calender)
+
+        imageButton.setOnClickListener {
+            (getActivity() as MainActivity).changeFragment()
+        }
 
         return view
     }
-
 
 }

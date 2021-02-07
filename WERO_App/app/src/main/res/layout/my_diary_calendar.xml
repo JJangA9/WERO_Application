@@ -15,8 +15,7 @@
         app:mcv_selectionColor="#E1F0FF"
         app:mcv_headerTextAppearance="@font/font"
         app:mcv_weekDayTextAppearance="@font/font"
-        app:mcv_dateTextAppearance="@font/font"
-        />
+        app:mcv_dateTextAppearance="@font/font" />
 
     <include layout="@layout/bottom_sheet"/>
 

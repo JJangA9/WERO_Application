@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -55,5 +57,14 @@ class MainActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewpager2) {tab, position ->
             tab.text = tabTextList[position]
         }.attach()
+    }
+
+    fun changeFragment() {
+        val calendarPage = MyDiary_Calendar()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.my_diary, calendarPage)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit()
     }
 }
