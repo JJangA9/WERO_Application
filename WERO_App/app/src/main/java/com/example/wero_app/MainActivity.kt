@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
-        ab.setDisplayShowCustomEnabled(true);
+        ab.setDisplayShowCustomEnabled(true)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
@@ -63,6 +63,8 @@ class MainActivity : AppCompatActivity() {
         when(item.itemId){
             R.id.settings -> {
                 //settings button
+                val intent : Intent = Intent(this, Setting::class.java)
+                startActivity(intent)
                 return super.onOptionsItemSelected(item)
             }
             R.id.postbox -> {

@@ -11,6 +11,7 @@
         android:theme="@style/Theme.WERO_App">
         <activity android:name=".WriteDiary"/>
         <activity android:name=".WriteReply"/>
+        <activity android:name=".Setting"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".Login">
             <intent-filter>
