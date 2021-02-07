@@ -1,13 +1,15 @@
 package com.example.wero_app
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ContextUtils.getActivity
 
-class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<MyDiaryRecyclerViewItem>) : RecyclerView.Adapter<MyDiaryAdapter.Holder>()  {
+class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<MyDiaryRecyclerViewItem>) : RecyclerView.Adapter<MyDiaryAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.my_diary_recyclerview_item, parent, false)
@@ -18,20 +20,25 @@ class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<MyDiary
         return diaryRecycler.size
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(diaryRecycler[position], context)
+        val listener = View.OnClickListener {
+            (getActivity(context) as MainActivity).changeFragment2()
+        }
+        holder?.bind(listener, diaryRecycler[position], context)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val date = itemView?.findViewById<TextView>(R.id.txt_date)
         val diary = itemView?.findViewById<TextView>(R.id.txt_content)
 
-        fun bind(diaryItem : MyDiaryRecyclerViewItem, context: Context) {
+        fun bind(listener: View.OnClickListener, diaryItem: MyDiaryRecyclerViewItem, context: Context) {
             date.text = diaryItem.date
             diary.text = diaryItem.letter
+            itemView.setOnClickListener(listener)
         }
-
     }
+
 }
 
 class MyDiaryRecyclerViewItem(val date: String, val letter: String) {
