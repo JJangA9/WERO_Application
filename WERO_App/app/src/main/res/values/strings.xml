@@ -20,4 +20,6 @@
     <string name="login">로그인</string>
 
     <string name="reply">답장</string>
+
+    <string name="settings">설정</string>
 </resources>

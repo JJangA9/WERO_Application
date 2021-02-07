@@ -2,6 +2,8 @@ package com.example.wero_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
+        ab.setDisplayShowCustomEnabled(true);
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
@@ -50,6 +53,27 @@ class MainActivity : AppCompatActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
         })
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.settings -> {
+                //settings button
+                return super.onOptionsItemSelected(item)
+            }
+            R.id.postbox -> {
+                //postbox button
+                return super.onOptionsItemSelected(item)
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+
     private fun init() {
         tabLayout = findViewById(R.id.tab_layout)
         viewpager2 = findViewById(R.id.pager)
