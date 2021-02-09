@@ -1,11 +1,14 @@
 package com.example.wero_app
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ContextUtils
 
 class PostboxAdapter(val context: Context, val letterRecycler : ArrayList<PostboxRecyclerViewItem>) : RecyclerView.Adapter<PostboxAdapter.Holder>()  {
 
@@ -19,16 +22,21 @@ class PostboxAdapter(val context: Context, val letterRecycler : ArrayList<Postbo
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(letterRecycler[position], context)
+        val listener = View.OnClickListener {
+            val intent = Intent(context, WriteReply::class.java)
+            context.startActivity(intent)
+        }
+        holder?.bind(listener, letterRecycler[position], context)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nickName = itemView?.findViewById<TextView>(R.id.nickName)
         val letter = itemView?.findViewById<TextView>(R.id.postboxTxt)
 
-        fun bind(postBoxItem : PostboxRecyclerViewItem, context: Context) {
+        fun bind(listener: View.OnClickListener, postBoxItem : PostboxRecyclerViewItem, context: Context) {
             nickName.text = postBoxItem.nickName
             letter.text = postBoxItem.letter
+            itemView.setOnClickListener(listener)
         }
     }
 }

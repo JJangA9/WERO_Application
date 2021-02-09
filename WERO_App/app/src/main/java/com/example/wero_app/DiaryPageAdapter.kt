@@ -19,11 +19,11 @@ class DiaryPageAdapter(val context: Context, val replyRecycler : ArrayList<Diary
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(replyRecycler[position], context)
+        holder.bind(replyRecycler[position], context)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val letter = itemView?.findViewById<TextView>(R.id.txt_content)
+        private val letter = itemView.findViewById<TextView>(R.id.txt_content)
 
         fun bind(replyItem : DiaryPageRecyclerViewItem, context: Context) {
             letter.text = replyItem.letter
