@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -68,6 +69,10 @@ class MyDiary_Calendar : Fragment() {
         val activity = getActivity() as MainActivity
         calendarView.addDecorators(EventDecorator(Color.RED, activity,  dotDates()))
 
+        val listBtn = view.findViewById<ImageButton>(R.id.imgbtn_list)
+        listBtn.setOnClickListener {
+            (getActivity() as MainActivity).changeFragmentToDiary()
+        }
 
 
         return view
