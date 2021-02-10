@@ -102,4 +102,13 @@ class MainActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
+
+    fun changeFragment3() {
+        val diaryPage = DiaryPage()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.my_diary_layout, diaryPage)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .addToBackStack(null)
+                .commit()
+    }
 }
