@@ -90,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.my_diary, calendarPage)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
                 .commit()
     }
 
@@ -113,9 +112,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeFragmentToDiary() {
-        val diaryPage = DiaryPage()
+        val myDiary = MyDiary()
         supportFragmentManager.beginTransaction()
-                .replace(R.id.my_diary_layout, diaryPage)
+                .replace(R.id.my_diary_layout, myDiary)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                 //.addToBackStack(null)
                 .commit()
