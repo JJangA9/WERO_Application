@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.postbox -> {
                 //postbox button
+                val intent : Intent = Intent(this, ReplyList::class.java)
+                startActivity(intent)
                 return super.onOptionsItemSelected(item)
             }
             else -> return super.onOptionsItemSelected(item)

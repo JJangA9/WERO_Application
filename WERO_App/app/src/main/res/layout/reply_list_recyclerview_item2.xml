@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+        <TextView
+            android:id="@+id/txt_reply"
+            android:background="@drawable/postbox_textview_edge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/view_line"
+            android:maxLines="2"
+            android:text="귀찮은 것 뿐이잖아 그렇게도 말할 수 있지 트수들 재우라고? 많이 재웠어 나는 더롱다크로.. 할만큼 했어요 사랑했지만~~~~"
+            android:lineSpacingExtra="5dp"
+            android:padding="15dp"
+            android:textSize="12sp"/>
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

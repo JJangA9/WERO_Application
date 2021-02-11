@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WERO_App">
+        <activity android:name=".ReplyList"/>
         <activity android:name=".WriteDiary"/>
         <activity android:name=".WriteReply"/>
         <activity android:name=".Setting"/>

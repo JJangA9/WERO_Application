@@ -23,4 +23,6 @@
     <string name="edit">수정하기</string>
 
     <string name="settings">설정</string>
+
+    <string name="reply_list">답장이 왔어요!</string>
 </resources>
