@@ -2,6 +2,7 @@ package com.example.wero_app
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ReplyListReplyAdapter(val context: Context, val replyRecycler : ArrayList<ReplyListRecyclerViewReplyItem>) : RecyclerView.Adapter<ReplyListReplyAdapter.Holder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.reply_list_recyclerview_item2, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.reply_list_recyclerview_reply_item, parent, false)
         return Holder(view)
     }
 
@@ -24,6 +25,11 @@ class ReplyListReplyAdapter(val context: Context, val replyRecycler : ArrayList<
         val listener = View.OnClickListener {
         }
         holder?.bind(listener, replyRecycler[position], context)
+    }
+
+    inner class setSize(v: View) {
+        val r = v.findViewById<TextView>(R.id.txt_reply)
+
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

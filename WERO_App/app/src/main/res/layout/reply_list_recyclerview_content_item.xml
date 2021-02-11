@@ -23,21 +23,27 @@
             android:text="귀찮은 것 뿐이잖아 그렇게도 말할 수 있지 트수들 재우라고? 많이 재웠어 나는 더롱다크로.. 할만큼 했어요 사랑했지만~~~~"
             android:textSize="12sp" />
 
-        <View
-            android:id="@+id/view_line"
-            android:layout_width="2dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:background="@color/subColor" />
+            android:layout_below="@id/txt_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_reply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_content"
-            android:layout_marginLeft="25dp" />
+            <View
+                android:id="@+id/view_line"
+                android:layout_width="1.5dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/subColor" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp" />
+
+        </LinearLayout>
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

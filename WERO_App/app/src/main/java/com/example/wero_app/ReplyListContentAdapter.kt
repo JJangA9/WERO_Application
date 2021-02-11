@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ReplyListContentAdapter(val context: Context, val contentRecycler : ArrayList<ReplyListRecyclerViewContentItem>) : RecyclerView.Adapter<ReplyListContentAdapter.Holder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.reply_list_recyclerview_item, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.reply_list_recyclerview_content_item, parent, false)
         return Holder(view)
     }
 
@@ -45,9 +45,8 @@ class ReplyListContentAdapter(val context: Context, val contentRecycler : ArrayL
             val lm = LinearLayoutManager(context)
             mRecyclerview.layoutManager = lm
             mRecyclerview.setHasFixedSize(true)
+            mRecyclerview.height
 
-            itemView.setOnClickListener(listener)
         }
     }
-
 }
