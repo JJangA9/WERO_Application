@@ -23,7 +23,7 @@ class MyDiary_CalendarAdapter (val context: Context, val letterRecycler : ArrayL
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val listener = View.OnClickListener {
-            (ContextUtils.getActivity(context) as MainActivity).changeFragment3()
+            (ContextUtils.getActivity(context) as MainActivity).changeFragmentHasBackStack(R.id.my_diary_layout, DiaryPage())
         }
         holder?.bind(listener, letterRecycler[position], context)
     }

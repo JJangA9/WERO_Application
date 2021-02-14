@@ -23,7 +23,8 @@ class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<MyDiary
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val listener = View.OnClickListener {
-            (getActivity(context) as MainActivity).changeFragment2()
+            //(getActivity(context) as MainActivity).changeFragment2()
+            (getActivity(context) as MainActivity).changeFragmentHasBackStack(R.id.my_diary, DiaryPage())
         }
         holder?.bind(listener, diaryRecycler[position], context)
     }

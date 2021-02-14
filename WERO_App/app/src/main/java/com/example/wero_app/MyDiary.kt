@@ -51,7 +51,7 @@ class MyDiary : Fragment() {
         val imageButton = view.findViewById<ImageButton>(R.id.imgbtn_calender)
 
         imageButton.setOnClickListener {
-            (getActivity() as MainActivity).changeFragment()
+            (getActivity() as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiary_Calendar())
         }
 
         return view

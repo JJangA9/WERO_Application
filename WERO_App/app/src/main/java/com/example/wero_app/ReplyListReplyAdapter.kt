@@ -2,6 +2,7 @@ package com.example.wero_app
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,11 @@ class ReplyListReplyAdapter(val context: Context, val replyRecycler : ArrayList<
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val listener = View.OnClickListener {
+            //(context as ReplyList).finish()
+            val intent = Intent(context, MainActivity::class.java)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("fragType", 1)
+            context.startActivity(intent)
         }
         holder?.bind(listener, replyRecycler[position], context)
     }

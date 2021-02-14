@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class MainActivity : AppCompatActivity() {
+    private var fragType = 0;
     private lateinit var tabLayout: TabLayout
     private lateinit var viewpager2 : ViewPager2
     private val tabTextList = arrayListOf("나의 이야기", "우편함", "모두의 위로")
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
+        fromReplyList()
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -52,6 +54,7 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
         })
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -77,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun init() {
         tabLayout = findViewById(R.id.tab_layout)
         viewpager2 = findViewById(R.id.pager)
@@ -87,6 +89,31 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
+    private fun fromReplyList() {
+        fragType = intent.getIntExtra("fragType", 0)
+        if(fragType == 1) {
+            val fab: FloatingActionButton = findViewById(R.id.fab)
+            fab.hide()
+            changeFragmentNoBackStack(R.id.fragment, DiaryPage())
+        }
+    }
+
+    fun changeFragmentHasBackStack(id: Int, frag: Fragment) {
+        supportFragmentManager.beginTransaction()
+                .replace(id, frag)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun changeFragmentNoBackStack(id: Int, frag: Fragment) {
+        supportFragmentManager.beginTransaction()
+                .replace(id, frag)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+    }
+
+    /*
     fun changeFragment() {
         val calendarPage = MyDiary_Calendar()
         supportFragmentManager.beginTransaction()
@@ -96,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeFragment2() {
-        val diaryPage: DiaryPage = DiaryPage()
+        val diaryPage = DiaryPage()
         supportFragmentManager.beginTransaction()
                 .replace(R.id.my_diary, diaryPage)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -121,4 +148,6 @@ class MainActivity : AppCompatActivity() {
                 //.addToBackStack(null)
                 .commit()
     }
+
+     */
 }

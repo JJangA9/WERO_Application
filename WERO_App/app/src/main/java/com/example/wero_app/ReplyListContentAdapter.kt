@@ -2,12 +2,14 @@ package com.example.wero_app
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.internal.ContextUtils
 
 class ReplyListContentAdapter(val context: Context, val contentRecycler : ArrayList<ReplyListRecyclerViewContentItem>) : RecyclerView.Adapter<ReplyListContentAdapter.Holder>()  {
 
@@ -23,6 +25,12 @@ class ReplyListContentAdapter(val context: Context, val contentRecycler : ArrayL
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val listener = View.OnClickListener {
+            //(context as ReplyList).finish()
+            val intent = Intent(context, MainActivity::class.java)
+            //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("fragType", 1)
+            context.startActivity(intent)
+
         }
         holder?.bind(listener, contentRecycler[position], context)
     }
@@ -46,7 +54,7 @@ class ReplyListContentAdapter(val context: Context, val contentRecycler : ArrayL
             mRecyclerview.layoutManager = lm
             mRecyclerview.setHasFixedSize(true)
             mRecyclerview.height
-
+            itemView.setOnClickListener(listener)
         }
     }
 }
