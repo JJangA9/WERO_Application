@@ -37,7 +37,7 @@ class Register : AppCompatActivity() {
         val pwd = userPwd.text.toString()
         val email = userEmail.text.toString()
 
-        val data = JoinData(name, email, pwd)
+        val data = JoinData(email, pwd, name)
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://ec2-18-191-207-96.us-east-2.compute.amazonaws.com:3000")
@@ -51,7 +51,6 @@ class Register : AppCompatActivity() {
 
             override fun onResponse(call: Call<JoinResponse>, response: Response<JoinResponse>) {
                 val login = response.body()
-                println("hahahahahahaha")
                 Toast.makeText(this@Register, login?.message, Toast.LENGTH_SHORT).show()
             }
         })

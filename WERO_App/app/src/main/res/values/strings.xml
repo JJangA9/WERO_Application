@@ -25,4 +25,6 @@
     <string name="settings">설정</string>
 
     <string name="reply_list">답장이 왔어요!</string>
+
+    <string name="kakao_app_key">ade08056f1c3a9fd0f215520fd377866</string>
 </resources>

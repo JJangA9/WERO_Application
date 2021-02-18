@@ -42,8 +42,14 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.2.4'
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
-    compile 'com.google.code.gson:gson:2.8.5'
-    compile 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //카카오 SDK 모듈
+    implementation "com.kakao.sdk:v2-user:2.2.0" // 카카오 로그인
+    implementation 'com.kakao.sdk:usermgmt:1.28.0'
+    implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+
     testImplementation 'junit:junit:4.+'
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
