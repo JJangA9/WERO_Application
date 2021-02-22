@@ -14,11 +14,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.WERO_App">
 
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key"/>
-
-        <activity android:name=".Register"></activity>
+        <activity android:name=".Register"/>
         <activity android:name=".ReplyList" />
         <activity android:name=".WriteDiary" />
         <activity android:name=".WriteReply" />
@@ -27,8 +23,14 @@
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:host="oauth"
+                    android:scheme="kakaoade08056f1c3a9fd0f215520fd377866" />
             </intent-filter>
         </activity>
     </application>

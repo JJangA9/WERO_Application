@@ -37,22 +37,22 @@ class Register : AppCompatActivity() {
         val pwd = userPwd.text.toString()
         val email = userEmail.text.toString()
 
-        val data = JoinData(email, pwd, name)
+        //val data = JoinData(email, pwd, name)
 
         val retrofit = Retrofit.Builder()
             .baseUrl("http://ec2-18-191-207-96.us-east-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
 
         val service = retrofit.create(RetrofitService::class.java)
-        service.userJoin(data).enqueue(object: Callback<JoinResponse> {
-            override fun onFailure(call: Call<JoinResponse>, t: Throwable) {
-                Toast.makeText(this@Register, "가입에 실패했습니다", Toast.LENGTH_SHORT).show()
-            }
-
-            override fun onResponse(call: Call<JoinResponse>, response: Response<JoinResponse>) {
-                val login = response.body()
-                Toast.makeText(this@Register, login?.message, Toast.LENGTH_SHORT).show()
-            }
-        })
+//        service.userJoin(data).enqueue(object: Callback<JoinResponse> {
+//            override fun onFailure(call: Call<JoinResponse>, t: Throwable) {
+//                Toast.makeText(this@Register, "가입에 실패했습니다", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onResponse(call: Call<JoinResponse>, response: Response<JoinResponse>) {
+//                val login = response.body()
+//                Toast.makeText(this@Register, login?.message, Toast.LENGTH_SHORT).show()
+//            }
+//        })
     }
 }

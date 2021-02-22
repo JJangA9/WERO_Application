@@ -3,6 +3,7 @@ package com.example.wero_app
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
+import java.sql.Date
 
 interface RetrofitService {
 
@@ -15,5 +16,6 @@ interface RetrofitService {
 
 data class LoginData(var userEmail: String, var userPwd: String)
 data class LoginResponse(var code: Int, var message: String, var userId: Int)
-data class JoinData(var userEmail: String, var userPwd: String, var userName: String)
+data class JoinData(var kakaoId: String)
 data class JoinResponse(var code: Int, var message: String)
+data class Diary(var userId: Int, var date: Date, var content: String, var isShared: Int)
