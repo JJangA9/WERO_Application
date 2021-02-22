@@ -36,6 +36,17 @@ class Login : AppCompatActivity() {
             startActivity(registerIntent)
         }
 
+        var kakaoId: Long? = null
+        // 사용자 정보 요청 (기본)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e("kakao", "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                kakaoId = user.id
+            }
+        }
+
         val btnKakao: ImageButton = findViewById(R.id.btn_kakao_login)
         btnKakao.setOnClickListener {
             // 로그인 공통 callback 구성
@@ -45,21 +56,11 @@ class Login : AppCompatActivity() {
                 } else if (token != null) {
                     Log.i("kakao", "로그인 성공 ${token.accessToken}")
 
-                    // 사용자 정보 요청 (기본)
-                    UserApiClient.instance.me { user, error ->
-                        if (error != null) {
-                            Log.e("kakao", "사용자 정보 요청 실패", error)
-                        }
-                        else if (user != null) {
-                            val userId: Long = user.id
-                            putData(JoinData(userId.toString()))
-                        }
-                    }
-
+                    putData(JoinData(kakaoId.toString()))
                     val intent = Intent(this, MainActivity::class.java)
+                    intent.putExtra("kakaoId", kakaoId.toString())
                     startActivity(intent)
                 }
-
             }
 
             // 카카오톡이 설치되어 있으면 카카오톡으로 로그인, 아니면 카카오계정으로 로그인
@@ -76,12 +77,13 @@ class Login : AppCompatActivity() {
 
     private fun putData(data: JoinData) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://ec2-3-133-87-32.us-east-2.compute.amazonaws.com:3000")
+            .baseUrl("http://ec2-3-140-134-198.us-east-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
 
         val service = retrofit.create(RetrofitService::class.java)
         service.userJoin(data).enqueue(object: Callback<JoinResponse> {
             override fun onFailure(call: Call<JoinResponse>, t: Throwable) {
+                Log.d("server", t.message.toString())
                 Toast.makeText(this@Login, "가입에 실패했습니다", Toast.LENGTH_SHORT).show()
             }
 

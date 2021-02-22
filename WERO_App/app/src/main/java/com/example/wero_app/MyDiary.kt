@@ -6,14 +6,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ImageButton
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.contracts.contract
 
 class MyDiary : Fragment() {
@@ -32,6 +32,10 @@ class MyDiary : Fragment() {
             savedInstanceState: Bundle?): View {
 
         val view = inflater.inflate(R.layout.my_diary,container,false)
+
+        val date: Date? = null
+        val txtDate: TextView = view.findViewById(R.id.txt_yymm)
+        txtDate.text = SimpleDateFormat("yyyy년 MM월").format(Date())
 
         diaryList = arrayListOf<MyDiaryRecyclerViewItem>(
                 MyDiaryRecyclerViewItem("21.02.07", "막 엣날에 막 뭐 보며는 다 빅뱅 덕질하고 그랬을거야\n 나 아는 꼬마애가 막 빅뱅 얘기만 해면 죽을라 했거든"),

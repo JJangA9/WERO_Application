@@ -2,6 +2,7 @@ package com.example.wero_app
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -28,6 +29,14 @@ class MainActivity : AppCompatActivity() {
         init()
         fromReplyList()
 
+        val kakaoId = intent.getStringExtra("kakaoId")
+        if (kakaoId != null) {
+            Log.d("kakao", kakaoId)
+        }
+        else {
+            Log.d("kakao", "kakaoId is null")
+        }
+
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         val ab = supportActionBar!!
@@ -37,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
             val intent = Intent(this, WriteDiary::class.java)
+            intent.putExtra("kakaoId", kakaoId)
             startActivity(intent)
         }
 
@@ -112,42 +122,4 @@ class MainActivity : AppCompatActivity() {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit()
     }
-
-    /*
-    fun changeFragment() {
-        val calendarPage = MyDiary_Calendar()
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.my_diary, calendarPage)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit()
-    }
-
-    fun changeFragment2() {
-        val diaryPage = DiaryPage()
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.my_diary, diaryPage)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commit()
-    }
-
-    fun changeFragment3() {
-        val diaryPage = DiaryPage()
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.my_diary_layout, diaryPage)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .addToBackStack(null)
-                .commit()
-    }
-
-    fun changeFragmentToDiary() {
-        val myDiary = MyDiary()
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.my_diary_layout, myDiary)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                //.addToBackStack(null)
-                .commit()
-    }
-
-     */
 }

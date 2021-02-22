@@ -21,7 +21,7 @@
                 android:textStyle="bold"/>
         </androidx.appcompat.widget.Toolbar>
         <Button
-            android:id="@+id/txt_date"
+            android:id="@+id/btn_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
@@ -39,7 +39,7 @@
             android:layout_marginRight="30dp"
             android:layout_marginBottom="15dp"
             android:padding="15dp"
-            android:layout_below="@+id/txt_date"
+            android:layout_below="@+id/btn_date"
             android:lineSpacingExtra="5dp"
             android:fontFamily="@font/ridibatang"
             android:textSize="15sp"
