@@ -123,16 +123,19 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun listToDiary(id: Int, frag: Fragment, bundle: Bundle) {
+    fun listToDiary(id: Int, frag: Fragment, data: DiaryItem) {
         supportFragmentManager.beginTransaction()
                 .replace(id, frag.apply{
                     arguments = Bundle().apply {
-                        putAll(bundle)
+                        putInt("diaryId", data.diaryId)
+                        putString("diaryDate", data.diaryDate)
+                        putString("content", data.content)
+                        putBoolean("isShared", data.isShared)
                     }
                 })
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null)
                 .commit()
     }
 
-    data class diaryData(var diary_id: Int, var user_id: String, var diary_date: String, var content: String, var isShared: Boolean)
 }

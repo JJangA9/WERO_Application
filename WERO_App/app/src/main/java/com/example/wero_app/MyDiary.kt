@@ -22,7 +22,7 @@ import java.util.*
 class MyDiary : Fragment() {
 
     lateinit var mcontext: Context
-    var diaryList = arrayListOf<MyDiaryRecyclerViewItem>()
+    var diaryList = arrayListOf<DiaryItem>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -72,7 +72,12 @@ class MyDiary : Fragment() {
 
                     for(i in 0 until arr!!.size()){
                         val obj: JsonObject = arr.get(i) as JsonObject
-                        diaryList.add(MyDiaryRecyclerViewItem(obj.get("diary_date").asString.substring(0, 10), obj.get("content").asString))
+                        val diaryId = obj.get("diary_id").asInt
+                        val userId = obj.get("user_id").asString
+                        val diaryDate = obj.get("diary_date").asString.substring(0, 10)
+                        val content = obj.get("content").asString
+                        val isShared = obj.get("is_shared").asBoolean
+                        diaryList.add(DiaryItem(diaryId, userId, diaryDate, content, isShared))
                         Log.d("mydiary", diaryList.toString())
                     }
                     setRecyclerView()

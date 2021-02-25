@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,6 +25,12 @@ class DiaryPage : Fragment() {
             savedInstanceState: Bundle?): View {
 
         val view = inflater.inflate(R.layout.diary_page,container,false)
+
+        val txtDate = view.findViewById<TextView>(R.id.txt_date)
+        val txtContent = view.findViewById<TextView>(R.id.txt_content)
+
+        txtDate.text = arguments?.getString("diaryDate")
+        txtContent.text = arguments?.getString("content")
 
         replyList = arrayListOf<DiaryPageRecyclerViewItem>(
                 DiaryPageRecyclerViewItem("곱창 ! 껍데기 ! 닭발 ! 소주 ! \n 배고팡"),
