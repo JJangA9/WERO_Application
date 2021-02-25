@@ -122,4 +122,17 @@ class MainActivity : AppCompatActivity() {
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit()
     }
+
+    fun listToDiary(id: Int, frag: Fragment, bundle: Bundle) {
+        supportFragmentManager.beginTransaction()
+                .replace(id, frag.apply{
+                    arguments = Bundle().apply {
+                        putAll(bundle)
+                    }
+                })
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit()
+    }
+
+    data class diaryData(var diary_id: Int, var user_id: String, var diary_date: String, var content: String, var isShared: Boolean)
 }

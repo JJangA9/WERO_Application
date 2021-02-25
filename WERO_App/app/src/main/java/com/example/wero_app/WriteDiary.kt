@@ -38,7 +38,7 @@ class WriteDiary : AppCompatActivity() {
         btnDate.text = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
         btnSave.setOnClickListener {
             val content = editContent.text.toString()
-            val date: String = SimpleDateFormat("yyyy-MM-dd").format(Date())
+            val date: String = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())
             var isShared = 0
             if(checkBoxSend.isChecked) isShared = 1
             putData(DiaryData(kakaoId, date, content, isShared))

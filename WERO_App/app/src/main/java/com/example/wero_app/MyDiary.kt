@@ -1,20 +1,23 @@
 package com.example.wero_app
 
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import org.w3c.dom.Text
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.contracts.contract
 
 class MyDiary : Fragment() {
 
@@ -33,24 +36,13 @@ class MyDiary : Fragment() {
 
         val view = inflater.inflate(R.layout.my_diary,container,false)
 
-        val date: Date? = null
         val txtDate: TextView = view.findViewById(R.id.txt_yymm)
         txtDate.text = SimpleDateFormat("yyyy년 MM월").format(Date())
 
-        diaryList = arrayListOf<MyDiaryRecyclerViewItem>(
-                MyDiaryRecyclerViewItem("21.02.07", "막 엣날에 막 뭐 보며는 다 빅뱅 덕질하고 그랬을거야\n 나 아는 꼬마애가 막 빅뱅 얘기만 해면 죽을라 했거든"),
-                MyDiaryRecyclerViewItem("21.02.06", "나나양님 뭐 여기 한버도 안왔는데 뭘 덕질을 해\n 유튜브는 다들 많이 본다고 하더라고\n바람의~~상처~~!~~ 그분 나랑 합방하려고 아크 하신 분이라고요?"),
-                MyDiaryRecyclerViewItem("21.02.05", "그래요?\n그래?나는 김돔님한테 가서 어 팬입니다~ 그ㅐㄹㅆ는대~\n김도님이 부담스러워하시긴 하더라 ㅋㅋ")
+        val date: String = SimpleDateFormat("yyyy-MM").format(Date())
+        Log.d("mydiary", date)
 
-        )
-
-        val mAdapter = MyDiaryAdapter(mcontext, diaryList)
-        val mRecyclerview = view.findViewById<RecyclerView>(R.id.recycler_diary)
-        mRecyclerview.adapter = mAdapter
-
-        val lm = LinearLayoutManager(mcontext)
-        mRecyclerview.layoutManager = lm
-        mRecyclerview.setHasFixedSize(true)
+        getDiaryList(date)
 
         val imageButton = view.findViewById<ImageButton>(R.id.imgbtn_calender)
 
@@ -59,6 +51,47 @@ class MyDiary : Fragment() {
         }
 
         return view
+    }
+
+    private fun getDiaryList(data: String) {
+        val retrofit = Retrofit.Builder()
+                .baseUrl("http://ec2-3-140-134-198.us-east-2.compute.amazonaws.com:3000")
+                .addConverterFactory(GsonConverterFactory.create()).build()
+
+        val service = retrofit.create(RetrofitService::class.java)
+        service.getDiaryList(data).enqueue(object : Callback<DiaryListResponse> {
+            override fun onFailure(call: Call<DiaryListResponse>, t: Throwable) {
+                Log.d("mydiary", "get failure")
+            }
+
+            override fun onResponse(call: Call<DiaryListResponse>, response: Response<DiaryListResponse>) {
+                val list = response.body()
+                val arr = list?.result
+                if (list != null) {
+                    Log.d("mydiary", arr.toString())
+
+                    for(i in 0 until arr!!.size()){
+                        val obj: JsonObject = arr.get(i) as JsonObject
+                        diaryList.add(MyDiaryRecyclerViewItem(obj.get("diary_date").asString.substring(0, 10), obj.get("content").asString))
+                        Log.d("mydiary", diaryList.toString())
+                    }
+                    setRecyclerView()
+                }
+                else {
+                    Log.d("mydiary", "null")
+                }
+            }
+        })
+    }
+
+    private fun setRecyclerView() {
+        val mAdapter = MyDiaryAdapter(mcontext, diaryList)
+        val mRecyclerview = view?.findViewById<RecyclerView>(R.id.recycler_diary)
+        mRecyclerview?.adapter = mAdapter
+
+        val lm = LinearLayoutManager(mcontext)
+        mRecyclerview?.layoutManager = lm
+        mRecyclerview?.setHasFixedSize(true)
     }
 
 }
