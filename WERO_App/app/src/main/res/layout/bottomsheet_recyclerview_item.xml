@@ -6,10 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
-        android:id="@+id/bottomSheetTxt"
+        android:id="@+id/txt_bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="새로운 일기를 등록해주세요"
+        android:text="@string/null_list"
         android:textSize="13sp"
         android:lineSpacingExtra="5dp"
         android:background="@drawable/edit_border_circle"

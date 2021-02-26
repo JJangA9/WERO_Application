@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 class Postbox : Fragment() {
 
     lateinit var mcontext: Context
-    var letterList = arrayListOf<PostboxRecyclerViewItem>()
+    var postList = arrayListOf<PostboxRecyclerViewItem>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,7 +26,7 @@ class Postbox : Fragment() {
 
         val view = inflater.inflate(R.layout.postbox,container,false)
 
-        letterList = arrayListOf<PostboxRecyclerViewItem>(
+        postList = arrayListOf<PostboxRecyclerViewItem>(
                 PostboxRecyclerViewItem("고민들어줘", "곱창 ! 껍데기 ! 닭발 ! 소주 ! \n 배고팡"),
                 PostboxRecyclerViewItem("취뽀", "취업시켜주세요 ~ ~ ~ ~ "),
                 PostboxRecyclerViewItem("슬퍼", "Congratulation 넌 참 대단해 \n"
@@ -35,7 +35,7 @@ class Postbox : Fragment() {
 
         )
 
-        val mAdapter = PostboxAdapter(mcontext, letterList)
+        val mAdapter = PostboxAdapter(mcontext, postList)
         val mRecyclerview = view.findViewById<RecyclerView>(R.id.postbox_recyclerView)
         mRecyclerview.adapter = mAdapter
 

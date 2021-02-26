@@ -17,7 +17,7 @@
         android:layout_gravity="center_horizontal"/>
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="2021.02.03"
@@ -26,7 +26,7 @@
         android:textColor="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/bottomSheet_recyclerView"
+        android:id="@+id/recycler_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="10dp"/>

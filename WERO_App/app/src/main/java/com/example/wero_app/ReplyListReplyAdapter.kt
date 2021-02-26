@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ReplyListReplyAdapter(val context: Context, val replyRecycler : ArrayList<ReplyListRecyclerViewReplyItem>) : RecyclerView.Adapter<ReplyListReplyAdapter.Holder>()  {
+class ReplyListReplyAdapter(val context: Context, private val replyRecycler : ArrayList<ReplyListRecyclerViewReplyItem>) : RecyclerView.Adapter<ReplyListReplyAdapter.Holder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.reply_list_recyclerview_reply_item, parent, false)
@@ -30,7 +30,7 @@ class ReplyListReplyAdapter(val context: Context, val replyRecycler : ArrayList<
             intent.putExtra("fragType", 1)
             context.startActivity(intent)
         }
-        holder?.bind(listener, replyRecycler[position], context)
+        holder.bind(listener, replyRecycler[position], context)
     }
 
     inner class setSize(v: View) {
@@ -39,7 +39,7 @@ class ReplyListReplyAdapter(val context: Context, val replyRecycler : ArrayList<
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val reply = itemView?.findViewById<TextView>(R.id.txt_reply)
+        val reply = itemView.findViewById<TextView>(R.id.txt_reply)
 
         fun bind(listener: View.OnClickListener, replyItem : ReplyListRecyclerViewReplyItem, context: Context) {
             reply.text = replyItem.reply

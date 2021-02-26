@@ -36,7 +36,7 @@ class EveryWero : Fragment() {
         )
 
         val mAdapter = EveryWeroAdapter(mcontext, letterList)
-        val mRecyclerview = view.findViewById<RecyclerView>(R.id.everyWero_recyclerView)
+        val mRecyclerview = view.findViewById<RecyclerView>(R.id.recycler_every)
         mRecyclerview.adapter = mAdapter
 
         val lm = LinearLayoutManager(mcontext)

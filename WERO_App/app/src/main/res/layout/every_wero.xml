@@ -6,7 +6,7 @@
     android:background="@color/mainColor">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/everyWero_recyclerView"
+        android:id="@+id/recycler_every"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="25dp"

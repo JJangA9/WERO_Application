@@ -23,8 +23,6 @@ class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<DiaryIt
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val listener = View.OnClickListener {
-            //(getActivity(context) as MainActivity).changeFragment2()
-            //(getActivity(context) as MainActivity).changeFragmentHasBackStack(R.id.my_diary, DiaryPage())
             (getActivity(context) as MainActivity).listToDiary(R.id.my_diary, DiaryPage(), diaryRecycler[position])
         }
         holder?.bind(listener, diaryRecycler[position], context)
@@ -43,5 +41,3 @@ class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<DiaryIt
 
 }
 data class DiaryItem(var diaryId: Int, var userId: String, var diaryDate: String, var content: String, var isShared: Boolean)
-class MyDiaryRecyclerViewItem(val date: String, val letter: String) {
-}

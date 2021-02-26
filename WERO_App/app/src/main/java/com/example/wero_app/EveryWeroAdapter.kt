@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class EveryWeroAdapter(val context: Context, val letterRecycler : ArrayList<EveryWeroRecyclerViewItem>) : RecyclerView.Adapter<EveryWeroAdapter.Holder>()  {
+class EveryWeroAdapter(val context: Context, private val letterRecycler : ArrayList<EveryWeroRecyclerViewItem>) : RecyclerView.Adapter<EveryWeroAdapter.Holder>()  {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.everywero_recyclerview_item, parent, false)
         return Holder(view)
@@ -18,18 +18,20 @@ class EveryWeroAdapter(val context: Context, val letterRecycler : ArrayList<Ever
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder?.bind(letterRecycler[position], context)
+        holder.bind(letterRecycler[position], context)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val nickName = itemView?.findViewById<TextView>(R.id.nickName)
-        val letter = itemView?.findViewById<TextView>(R.id.postboxTxt)
-        val heartNum = itemView?.findViewById<TextView>(R.id.heartNumber)
+        private val nickName = itemView.findViewById<TextView>(R.id.txt_nickname)
+        private val wero = itemView.findViewById<TextView>(R.id.txt_wero)
+        private val heartNum = itemView.findViewById<TextView>(R.id.txt_heart_number)
 
         fun bind(postBoxItem : EveryWeroRecyclerViewItem, context: Context) {
             nickName.text = postBoxItem.nickName
-            letter.text = postBoxItem.letter
+            wero.text = postBoxItem.wero
             heartNum.text = postBoxItem.heartNum
         }
     }
 }
+
+class EveryWeroRecyclerViewItem(val nickName: String, val wero: String, val heartNum: String)

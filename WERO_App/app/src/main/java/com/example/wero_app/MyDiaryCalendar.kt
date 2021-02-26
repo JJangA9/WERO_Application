@@ -21,11 +21,11 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import java.util.*
 import kotlin.collections.ArrayList
 
-class MyDiary_Calendar : Fragment() {
+class MyDiaryCalendar : Fragment() {
 
     lateinit var sheetBehavior:BottomSheetBehavior<LinearLayout>
     lateinit var mcontext: Context
-    var letterList = arrayListOf<MyDiary_Calendar_RecyclerViewItem>()
+    var letterList = arrayListOf<MyDiaryCalendarRecyclerViewItem>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,17 +39,17 @@ class MyDiary_Calendar : Fragment() {
 
         val view = inflater.inflate(R.layout.my_diary_calendar, container, false)
 
-        letterList = arrayListOf<MyDiary_Calendar_RecyclerViewItem>(
-                MyDiary_Calendar_RecyclerViewItem("곱창 ! 껍데기 ! 닭발 ! 소주 ! \n 배고팡"),
-                MyDiary_Calendar_RecyclerViewItem( "취업시켜주세요 ~ ~ ~ ~ "),
-                MyDiary_Calendar_RecyclerViewItem("Congratulation 넌 참 대단해 \n"
+        letterList = arrayListOf<MyDiaryCalendarRecyclerViewItem>(
+                MyDiaryCalendarRecyclerViewItem("곱창 ! 껍데기 ! 닭발 ! 소주 ! \n 배고팡"),
+                MyDiaryCalendarRecyclerViewItem( "취업시켜주세요 ~ ~ ~ ~ "),
+                MyDiaryCalendarRecyclerViewItem("Congratulation 넌 참 대단해 \n"
                         + "Congratulation 어쩜 그렇게 \n"
                         + "아무렇지 않아 하며 날 짓밟아 \n웃는 얼굴을 보니 다 잊었나봐")
 
         )
 
-        val mAdapter = MyDiary_CalendarAdapter(mcontext, letterList)
-        val mRecyclerview = view.findViewById<RecyclerView>(R.id.bottomSheet_recyclerView)
+        val mAdapter = MyDiaryCalendarAdapter(mcontext, letterList)
+        val mRecyclerview = view.findViewById<RecyclerView>(R.id.recycler_bottom)
         mRecyclerview.adapter = mAdapter
 
         val lm = LinearLayoutManager(mcontext)
@@ -61,7 +61,7 @@ class MyDiary_Calendar : Fragment() {
         sheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetMoveAction()
 
-        var calendarView = view.findViewById<MaterialCalendarView>(R.id.calendarView)
+        var calendarView = view.findViewById<MaterialCalendarView>(R.id.calendar)
         calendarView.state().edit()
             .setFirstDayOfWeek(Calendar.SUNDAY) // 일요일부터 시작
             .setCalendarDisplayMode(CalendarMode.MONTHS) // 월별로 표시

@@ -47,7 +47,7 @@ class MyDiary : Fragment() {
         val imageButton = view.findViewById<ImageButton>(R.id.imgbtn_calender)
 
         imageButton.setOnClickListener {
-            (getActivity() as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiary_Calendar())
+            (getActivity() as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiaryCalendar())
         }
 
         return view
@@ -55,7 +55,7 @@ class MyDiary : Fragment() {
 
     private fun getDiaryList(data: String) {
         val retrofit = Retrofit.Builder()
-                .baseUrl("http://ec2-3-140-134-198.us-east-2.compute.amazonaws.com:3000")
+                .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
                 .addConverterFactory(GsonConverterFactory.create()).build()
 
         val service = retrofit.create(RetrofitService::class.java)

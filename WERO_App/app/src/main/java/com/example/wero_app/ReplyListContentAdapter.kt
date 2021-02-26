@@ -32,11 +32,11 @@ class ReplyListContentAdapter(val context: Context, val contentRecycler : ArrayL
             context.startActivity(intent)
 
         }
-        holder?.bind(listener, contentRecycler[position], context)
+        holder.bind(listener, contentRecycler[position], context)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val content: TextView = itemView?.findViewById<TextView>(R.id.txt_content)
+        private val content: TextView = itemView.findViewById<TextView>(R.id.txt_content)
         private var replyList = arrayListOf<ReplyListRecyclerViewReplyItem>()
         private val mRecyclerview = itemView.findViewById<RecyclerView>(R.id.recycler_reply)
 
