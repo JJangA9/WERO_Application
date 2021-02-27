@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.internal.ContextUtils.getActivity
 
-class MyDiaryAdapter(val context: Context, val diaryRecycler : ArrayList<DiaryItem>) : RecyclerView.Adapter<MyDiaryAdapter.Holder>() {
+class MyDiaryAdapter(val context: Context, private val diaryRecycler : ArrayList<DiaryItem>) : RecyclerView.Adapter<MyDiaryAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.my_diary_recyclerview_item, parent, false)

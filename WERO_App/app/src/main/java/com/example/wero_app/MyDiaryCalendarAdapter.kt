@@ -10,14 +10,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.internal.ContextUtils
 
-class MyDiaryCalendarAdapter (val context: Context, val letterRecycler : ArrayList<MyDiaryCalendarRecyclerViewItem>) : RecyclerView.Adapter<MyDiaryCalendarAdapter.Holder>() {
+class MyDiaryCalendarAdapter (val context: Context, private val diaryRecycler : ArrayList<DiaryItem>) : RecyclerView.Adapter<MyDiaryCalendarAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.bottomsheet_recyclerview_item, parent, false)
         return Holder(view)
     }
 
     override fun getItemCount(): Int {
-        return letterRecycler.size
+        return diaryRecycler.size
     }
 
     @SuppressLint("RestrictedApi")
@@ -25,17 +25,17 @@ class MyDiaryCalendarAdapter (val context: Context, val letterRecycler : ArrayLi
         val listener = View.OnClickListener {
             (ContextUtils.getActivity(context) as MainActivity).changeFragmentHasBackStack(R.id.my_diary_layout, DiaryPage())
         }
-        holder?.bind(listener, letterRecycler[position], context)
+        holder.bind(listener, diaryRecycler[position], context)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val letter = itemView?.findViewById<TextView>(R.id.txt_bottom_sheet)
+        val diary = itemView?.findViewById<TextView>(R.id.txt_bottom_sheet)
 
-        fun bind(listener: View.OnClickListener, postBoxItem : MyDiaryCalendarRecyclerViewItem, context: Context) {
-            letter.text = postBoxItem.letter
+        fun bind(listener: View.OnClickListener, postBoxItem: DiaryItem, context: Context) {
+            diary.text = postBoxItem.content
             itemView.setOnClickListener(listener)
         }
     }
 }
 
-class MyDiaryCalendarRecyclerViewItem (val letter: String)
+

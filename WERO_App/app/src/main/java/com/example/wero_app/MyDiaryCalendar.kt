@@ -3,21 +3,29 @@ package com.example.wero_app
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.JsonObject
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
+import org.w3c.dom.Text
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -25,7 +33,8 @@ class MyDiaryCalendar : Fragment() {
 
     lateinit var sheetBehavior:BottomSheetBehavior<LinearLayout>
     lateinit var mcontext: Context
-    var letterList = arrayListOf<MyDiaryCalendarRecyclerViewItem>()
+    private var diaryList = arrayListOf<DiaryItem>()
+    private var diaryOneDateList = arrayListOf<DiaryItem>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -39,43 +48,109 @@ class MyDiaryCalendar : Fragment() {
 
         val view = inflater.inflate(R.layout.my_diary_calendar, container, false)
 
-        letterList = arrayListOf<MyDiaryCalendarRecyclerViewItem>(
-                MyDiaryCalendarRecyclerViewItem("곱창 ! 껍데기 ! 닭발 ! 소주 ! \n 배고팡"),
-                MyDiaryCalendarRecyclerViewItem( "취업시켜주세요 ~ ~ ~ ~ "),
-                MyDiaryCalendarRecyclerViewItem("Congratulation 넌 참 대단해 \n"
-                        + "Congratulation 어쩜 그렇게 \n"
-                        + "아무렇지 않아 하며 날 짓밟아 \n웃는 얼굴을 보니 다 잊었나봐")
-
-        )
-
-        val mAdapter = MyDiaryCalendarAdapter(mcontext, letterList)
-        val mRecyclerview = view.findViewById<RecyclerView>(R.id.recycler_bottom)
-        mRecyclerview.adapter = mAdapter
-
-        val lm = LinearLayoutManager(mcontext)
-        mRecyclerview.layoutManager = lm
-        mRecyclerview.setHasFixedSize(true)
 
 
+        //List button listener
+        val listBtn = view.findViewById<ImageButton>(R.id.imgbtn_list)
+        listBtn.setOnClickListener {
+            (activity as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiary())
+        }
+
+        //Bottom sheet
         val bottomSheet: LinearLayout by lazy { view.findViewById<LinearLayout>(R.id.bottom_sheet) }
+        val txtDate = view.findViewById<TextView>(R.id.txt_date)
         sheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetMoveAction()
 
-        var calendarView = view.findViewById<MaterialCalendarView>(R.id.calendar)
+        //Calendar view
+        val calendarView = view.findViewById<MaterialCalendarView>(R.id.calendar)
         calendarView.state().edit()
             .setFirstDayOfWeek(Calendar.SUNDAY) // 일요일부터 시작
             .setCalendarDisplayMode(CalendarMode.MONTHS) // 월별로 표시
 
-        val activity = getActivity() as MainActivity
-        calendarView.addDecorators(EventDecorator(Color.RED, activity,  dotDates()))
+        //Get diary list of this month
+        val date: String = SimpleDateFormat("yyyy-MM").format(Date())
+        getDiaryList(date)
 
-        val listBtn = view.findViewById<ImageButton>(R.id.imgbtn_list)
-        listBtn.setOnClickListener {
-            (getActivity() as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiary())
+        val activity = activity as MainActivity
+        calendarView.addDecorators(EventDecorator(Color.RED, activity, dotDates()))
+
+        calendarView.setOnDateChangedListener { widget, selectedDate, selected ->
+            Log.d("calendar", selectedDate.day.toString())
+            val dateText = selectedDate.year.toString() + "." + (selectedDate.month + 1).toString() + "." + selectedDate.day.toString()
+            txtDate.text = dateText
+            setDiaryList(selectedDate.day.toString())
+        }
+        
+        calendarView.setOnMonthChangedListener { widget, selectedDate ->
+            val year = selectedDate.year
+            val month = selectedDate.month + 1
+            val dateText: String
+            if(month < 10) dateText = "$year-0$month"
+            else dateText = "$year-$month"
+            getDiaryList(dateText)
         }
 
-
         return view
+    }
+
+    private fun setRecyclerView() {
+        //Recycler view
+        val mAdapter = MyDiaryCalendarAdapter(mcontext, diaryOneDateList)
+        val mRecyclerview = view?.findViewById<RecyclerView>(R.id.recycler_bottom)
+        mRecyclerview?.adapter = mAdapter
+
+        val lm = LinearLayoutManager(mcontext)
+        mRecyclerview?.layoutManager = lm
+        mRecyclerview?.setHasFixedSize(true)
+    }
+
+    //Get diary list of today
+    private fun setDiaryList(selectedDate: String) {
+        diaryOneDateList.clear()
+        for(i in 0 until diaryList.size) {
+            val diaryDate = diaryList[i].diaryDate
+            val diaryDay = diaryDate.substring(8, 10)
+            if(diaryDay == selectedDate) {
+                diaryOneDateList.add(diaryList[i])
+            }
+        }
+
+        setRecyclerView()
+    }
+
+    private fun getDiaryList(data: String) {
+        val service = (activity as MainActivity).service
+        service.getDiaryList(data).enqueue(object : Callback<DiaryListResponse> {
+            override fun onFailure(call: Call<DiaryListResponse>, t: Throwable) {
+                Log.d("mydiary", "get failure")
+            }
+
+            override fun onResponse(call: Call<DiaryListResponse>, response: Response<DiaryListResponse>) {
+                val list = response.body()
+                val arr = list?.result
+                if (list != null) {
+                    Log.d("mydiary", arr.toString())
+
+                    diaryList.clear()
+                    for(i in 0 until arr!!.size()){
+                        val obj: JsonObject = arr.get(i) as JsonObject
+                        val diaryId = obj.get("diary_id").asInt
+                        val userId = obj.get("user_id").asString
+                        val diaryDate = obj.get("diary_date").asString.substring(0, 10)
+                        val content = obj.get("content").asString
+                        val isShared = obj.get("is_shared").asBoolean
+                        diaryList.add(DiaryItem(diaryId, userId, diaryDate, content, isShared))
+                        Log.d("mydiary", diaryList.toString())
+
+                        //setDiaryList(SimpleDateFormat("dd").format(Date()))
+                    }
+                }
+                else {
+                    Log.d("mydiary", "null")
+                }
+            }
+        })
     }
 
     //bottomSheet 확장, 축소 action

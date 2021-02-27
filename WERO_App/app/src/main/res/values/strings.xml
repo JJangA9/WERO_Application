@@ -8,6 +8,7 @@
 
     <string name="show_list">리스트로 보기</string>
     <string name="null_list">새로운 일기를 작성해 주세요!</string>
+    <string name="null_date">날짜를 선택해 주세요!</string>
 
     <string name="write_diary">일기 쓰기</string>
 

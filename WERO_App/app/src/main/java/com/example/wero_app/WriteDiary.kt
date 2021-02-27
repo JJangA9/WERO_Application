@@ -48,7 +48,7 @@ class WriteDiary : AppCompatActivity() {
 
     private fun putData(data: DiaryData) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://ec2-3-140-134-198.us-east-2.compute.amazonaws.com:3000")
+            .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
 
         val service = retrofit.create(RetrofitService::class.java)

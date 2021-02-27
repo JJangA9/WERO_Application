@@ -20,7 +20,7 @@
         android:id="@+id/txt_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2021.02.03"
+        android:text="@string/null_date"
         android:layout_marginTop="15dp"
         android:textSize="20sp"
         android:textColor="@color/black"/>

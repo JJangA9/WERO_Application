@@ -47,18 +47,14 @@ class MyDiary : Fragment() {
         val imageButton = view.findViewById<ImageButton>(R.id.imgbtn_calender)
 
         imageButton.setOnClickListener {
-            (getActivity() as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiaryCalendar())
+            (activity as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiaryCalendar())
         }
 
         return view
     }
 
     private fun getDiaryList(data: String) {
-        val retrofit = Retrofit.Builder()
-                .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
-                .addConverterFactory(GsonConverterFactory.create()).build()
-
-        val service = retrofit.create(RetrofitService::class.java)
+        val service = (activity as MainActivity).service
         service.getDiaryList(data).enqueue(object : Callback<DiaryListResponse> {
             override fun onFailure(call: Call<DiaryListResponse>, t: Throwable) {
                 Log.d("mydiary", "get failure")
@@ -70,6 +66,7 @@ class MyDiary : Fragment() {
                 if (list != null) {
                     Log.d("mydiary", arr.toString())
 
+                    diaryList.clear()
                     for(i in 0 until arr!!.size()){
                         val obj: JsonObject = arr.get(i) as JsonObject
                         val diaryId = obj.get("diary_id").asInt
