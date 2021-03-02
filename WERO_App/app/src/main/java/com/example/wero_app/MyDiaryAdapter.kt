@@ -25,7 +25,7 @@ class MyDiaryAdapter(val context: Context, private val diaryRecycler : ArrayList
         val listener = View.OnClickListener {
             (getActivity(context) as MainActivity).listToDiary(R.id.my_diary, DiaryPage(), diaryRecycler[position])
         }
-        holder?.bind(listener, diaryRecycler[position], context)
+        holder.bind(listener, diaryRecycler[position], context)
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -40,4 +40,4 @@ class MyDiaryAdapter(val context: Context, private val diaryRecycler : ArrayList
     }
 
 }
-data class DiaryItem(var diaryId: Int, var userId: String, var diaryDate: String, var content: String, var isShared: Boolean)
+data class DiaryItem(var diaryId: Int, var userId: String, var diaryDate: String, var content: String, var isShared: Int)

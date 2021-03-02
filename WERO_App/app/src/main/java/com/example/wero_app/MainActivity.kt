@@ -16,6 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+import com.kakao.sdk.user.UserApiClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
     val service = retrofit.create(RetrofitService::class.java)
+    var kakaoId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         init()
         fromReplyList()
 
-        val kakaoId = intent.getStringExtra("kakaoId")
+        kakaoId = intent.getStringExtra("kakaoId")
         if (kakaoId != null) {
-            Log.d("kakao", kakaoId)
+            Log.d("kakao", kakaoId!!)
         }
         else {
             Log.d("kakao", "kakaoId is null")
@@ -117,6 +119,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     fun changeFragmentHasBackStack(id: Int, frag: Fragment) {
         supportFragmentManager.beginTransaction()
                 .replace(id, frag)
@@ -139,7 +142,7 @@ class MainActivity : AppCompatActivity() {
                         putInt("diaryId", data.diaryId)
                         putString("diaryDate", data.diaryDate)
                         putString("content", data.content)
-                        putBoolean("isShared", data.isShared)
+                        putInt("isShared", data.isShared)
                     }
                 })
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

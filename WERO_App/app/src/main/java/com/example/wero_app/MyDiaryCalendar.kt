@@ -1,5 +1,6 @@
 package com.example.wero_app
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.JsonObject
+import com.kakao.sdk.user.UserApiClient
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -25,6 +27,7 @@ import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Integer.parseInt
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -41,6 +44,7 @@ class MyDiaryCalendar : Fragment() {
         mcontext = context
     }
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -68,7 +72,17 @@ class MyDiaryCalendar : Fragment() {
 
         // Get diary list of this month
         val date: String = SimpleDateFormat("yyyy-MM").format(Date())
-        getDiaryList(date)
+        var userId: String? = null
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.d("calendar", "사용자 정보 요청 실패", error)
+            }
+            else {
+                userId = user?.id?.toString()
+                userId?.let { getDiaryList(it, date) }
+            }
+        }
+
 
         // Create red dot (today)
         val activity = activity as MainActivity
@@ -79,7 +93,7 @@ class MyDiaryCalendar : Fragment() {
             Log.d("calendar", selectedDate.day.toString())
             val dateText = selectedDate.year.toString() + "." + (selectedDate.month + 1).toString() + "." + selectedDate.day.toString()
             txtDate.text = dateText
-            setDiaryList(selectedDate.day.toString())
+            setDiaryList(selectedDate.day)
         }
 
         // Month selected listener
@@ -89,7 +103,7 @@ class MyDiaryCalendar : Fragment() {
             val dateText: String
             if(month < 10) dateText = "$year-0$month"
             else dateText = "$year-$month"
-            getDiaryList(dateText)
+            userId?.let { getDiaryList(it, dateText) }
         }
 
         return view
@@ -107,11 +121,11 @@ class MyDiaryCalendar : Fragment() {
     }
 
     //Get diary list (day)
-    private fun setDiaryList(selectedDate: String) {
+    private fun setDiaryList(selectedDate: Int) {
         diaryOneDateList.clear()
         for(i in 0 until diaryList.size) {
             val diaryDate = diaryList[i].diaryDate
-            val diaryDay = diaryDate.substring(8, 10)
+            val diaryDay = parseInt(diaryDate.substring(8, 10))
             if(diaryDay == selectedDate) {
                 diaryOneDateList.add(diaryList[i])
             }
@@ -119,9 +133,9 @@ class MyDiaryCalendar : Fragment() {
         setRecyclerView()
     }
 
-    private fun getDiaryList(data: String) {
+    private fun getDiaryList(userId: String, date: String) {
         val service = (activity as MainActivity).service
-        service.getDiaryList(data).enqueue(object : Callback<DiaryListResponse> {
+        service.getDiaryList(userId, date).enqueue(object : Callback<DiaryListResponse> {
             override fun onFailure(call: Call<DiaryListResponse>, t: Throwable) {
                 Log.d("mydiary", "get failure")
             }
@@ -139,7 +153,7 @@ class MyDiaryCalendar : Fragment() {
                         val userId = obj.get("user_id").asString
                         val diaryDate = obj.get("diary_date").asString.substring(0, 10)
                         val content = obj.get("content").asString
-                        val isShared = obj.get("is_shared").asBoolean
+                        val isShared = obj.get("is_shared").asInt
                         diaryList.add(DiaryItem(diaryId, userId, diaryDate, content, isShared))
                         Log.d("mydiary", diaryList.toString())
 

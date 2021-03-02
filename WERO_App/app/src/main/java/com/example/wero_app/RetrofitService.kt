@@ -22,7 +22,10 @@ interface RetrofitService {
     fun sendPost(@Body data: DiaryData) : Call<DiaryResponse>
 
     @GET("/diary/list")
-    fun getDiaryList(@Query("date") date: String) : Call<DiaryListResponse>
+    fun getDiaryList(@Query("userId") userId: String, @Query("date") date: String) : Call<DiaryListResponse>
+
+    @GET("/post/list")
+    fun getPostList(@Query("userId") userId: String) : Call<PostListResponse>
 }
 
 data class LoginData(var userEmail: String, var userPwd: String)
@@ -35,3 +38,4 @@ data class DiaryData(var userId: String?, var date: String, var content: String?
 data class DiaryResponse(var code: Int, var message: String)
 
 data class DiaryListResponse(var result: JsonArray)
+data class PostListResponse(var result: JsonArray)

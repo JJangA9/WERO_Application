@@ -15,6 +15,11 @@
     <string name="save">저장하기</string>
     <string name="want_send">편지 보낼래요!</string>
 
+    <string name="null_name">null</string>
+    <string name="post_of">님의 편지</string>
+    <string name="null_content">내용 없음 / 편지 내용 불러오기 실패</string>
+
+    <string name="edit_reply">답장을 입력해 주세요!</string>
     <string name="send">답장하기</string>
 
     <string name="email">이메일</string>

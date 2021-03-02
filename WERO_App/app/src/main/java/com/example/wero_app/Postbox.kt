@@ -2,17 +2,23 @@ package com.example.wero_app
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
+import com.kakao.sdk.user.UserApiClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Postbox : Fragment() {
 
     lateinit var mcontext: Context
-    var postList = arrayListOf<PostboxRecyclerViewItem>()
+    var postList = arrayListOf<PostItem>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -26,25 +32,64 @@ class Postbox : Fragment() {
 
         val view = inflater.inflate(R.layout.postbox,container,false)
 
-        postList = arrayListOf<PostboxRecyclerViewItem>(
-                PostboxRecyclerViewItem("고민들어줘", "곱창 ! 껍데기 ! 닭발 ! 소주 ! \n 배고팡"),
-                PostboxRecyclerViewItem("취뽀", "취업시켜주세요 ~ ~ ~ ~ "),
-                PostboxRecyclerViewItem("슬퍼", "Congratulation 넌 참 대단해 \n"
-                        + "Congratulation 어쩜 그렇게 \n"
-                        + "아무렇지 않아 하며 날 짓밟아 \n웃는 얼굴을 보니 다 잊었나봐")
-
-        )
-
-        val mAdapter = PostboxAdapter(mcontext, postList)
-        val mRecyclerview = view.findViewById<RecyclerView>(R.id.postbox_recyclerView)
-        mRecyclerview.adapter = mAdapter
-
-        val lm = LinearLayoutManager(mcontext)
-        mRecyclerview.layoutManager = lm
-        mRecyclerview.setHasFixedSize(true)
-
+        var userId: String? = null
+        // 사용자 정보 요청 (기본)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e("postbox", "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                userId = user.id.toString()
+                Log.d("postbox", userId!!)
+                userId?.let { getPostList(it) }
+            }
+        }
 
         return view
+    }
+
+    private fun getPostList(data: String) {
+        val service = (activity as MainActivity).service
+        service.getPostList(data).enqueue(object : Callback<PostListResponse> {
+            override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
+                Log.d("postbox", "get failure")
+            }
+
+            override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>) {
+                val list = response.body()
+                val arr = list?.result
+                if (list != null) {
+                    Log.d("postbox", arr.toString())
+
+                    postList.clear()
+                    for(i in 0 until arr!!.size()){
+                        val obj: JsonObject = arr.get(i) as JsonObject
+                        val diaryId = obj.get("diary_id").asInt
+                        val userFromId = obj.get("user_from_id").asString
+                        val userToId = obj.get("user_to_id").asString
+                        val diaryDate = obj.get("diary_date").asString.substring(0, 10)
+                        val content = obj.get("content").asString
+                        val isShared = obj.get("is_shared").asInt
+                        postList.add(PostItem(diaryId, userFromId, userToId, diaryDate, content, isShared))
+                        Log.d("postbox", postList.toString())
+                    }
+                    setRecyclerView()
+                }
+                else {
+                    Log.d("mydiary", "null")
+                }
+            }
+        })
+    }
+
+    private fun setRecyclerView() {
+        val mAdapter = PostboxAdapter(mcontext, postList)
+        val mRecyclerview = view?.findViewById<RecyclerView>(R.id.postbox_recyclerView)
+        mRecyclerview?.adapter = mAdapter
+
+        val lm = LinearLayoutManager(mcontext)
+        mRecyclerview?.layoutManager = lm
+        mRecyclerview?.setHasFixedSize(true)
     }
 
 

@@ -7,7 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/mailImage"
+        android:id="@+id/img_post"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="5dp"
@@ -16,41 +16,42 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
-        android:id="@+id/nickName"
+        android:id="@+id/txt_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginStart="10dp"
-        android:text="나힘들어"
+        android:text="@string/null_name"
         android:textSize="15sp"
         android:textColor="@color/black"
-        app:layout_constraintLeft_toRightOf="@id/mailImage"
+        app:layout_constraintLeft_toRightOf="@id/img_post"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/userIDAddTxt"
+        android:id="@+id/txt_post_of"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginStart="2dp"
-        android:text="님의 편지"
+        android:text="@string/post_of"
         android:textSize="15sp"
         android:textColor="@color/black"
-        app:layout_constraintLeft_toRightOf="@id/nickName"
+        app:layout_constraintLeft_toRightOf="@id/txt_name"
         app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
-        android:id="@+id/postboxTxt"
+        android:id="@+id/txt_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="코로나 때문에 힘들다\n곱창 족발 껍데기 닭발 ! ! ! !"
+        android:text="@string/null_content"
         android:textSize="12sp"
         android:padding="15dp"
         android:layout_marginTop="5dp"
         android:lineSpacingExtra="5dp"
+        android:maxLines="3"
         android:textColor="@color/subColor"
         android:background="@drawable/postbox_textview_edge"
-        app:layout_constraintTop_toBottomOf="@id/mailImage"/>
+        app:layout_constraintTop_toBottomOf="@id/img_post"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -30,7 +30,9 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_below="@+id/toolbar"
+            android:lineSpacingExtra="5dp"
             android:padding="15dp"
+            android:textSize="12sp"
             android:text="text_test_content"/>
         <EditText
             android:id="@+id/edit_reply"
@@ -46,9 +48,9 @@
             android:layout_below="@+id/txt_content"
             android:lineSpacingExtra="5dp"
             android:fontFamily="@font/ridibatang"
-            android:textSize="15sp"
-            android:textColor="@color/subColor"
-            android:hint="test_reply"/>
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:hint="@string/edit_reply"/>
         <Button
             android:id="@+id/btn_send"
             android:layout_width="wrap_content"
