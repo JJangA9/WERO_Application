@@ -1,6 +1,7 @@
 package com.example.wero_app
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +19,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class WriteDiary : AppCompatActivity() {
+    val retrofit = Retrofit.Builder()
+            .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.write_diary)
@@ -42,24 +47,38 @@ class WriteDiary : AppCompatActivity() {
             var isShared = 0
             if(checkBoxSend.isChecked) isShared = 1
             putData(DiaryData(kakaoId, date, content, isShared))
+
             finish()
         }
     }
 
     private fun putData(data: DiaryData) {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
-            .addConverterFactory(GsonConverterFactory.create()).build()
-
         val service = retrofit.create(RetrofitService::class.java)
         service.saveDiary(data).enqueue(object: Callback<DiaryResponse> {
             override fun onFailure(call: Call<DiaryResponse>, t: Throwable) {
                 Toast.makeText(this@WriteDiary, "저장 실패", Toast.LENGTH_SHORT).show()
+                if(data.isShared == 1) sendPost(data)
+                Log.d("writediary", t.message.toString())
             }
 
             override fun onResponse(call: Call<DiaryResponse>, response: Response<DiaryResponse>) {
-                val login = response.body()
-                Toast.makeText(this@WriteDiary, login?.message, Toast.LENGTH_SHORT).show()
+                val msg = response.body()
+                if(data.isShared == 1) sendPost(data)
+                Toast.makeText(this@WriteDiary, msg?.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun sendPost(data: DiaryData) {
+        val service = retrofit.create(RetrofitService::class.java)
+        service.sendPost(data).enqueue(object: Callback<DiaryResponse> {
+            override fun onFailure(call: Call<DiaryResponse>, t: Throwable) {
+                Toast.makeText(this@WriteDiary, "전송 실패", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<DiaryResponse>, response: Response<DiaryResponse>) {
+                val msg = response.body()
+                Toast.makeText(this@WriteDiary, msg?.message, Toast.LENGTH_SHORT).show()
             }
         })
     }

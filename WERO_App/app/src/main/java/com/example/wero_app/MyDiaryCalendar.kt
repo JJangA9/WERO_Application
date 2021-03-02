@@ -48,40 +48,41 @@ class MyDiaryCalendar : Fragment() {
 
         val view = inflater.inflate(R.layout.my_diary_calendar, container, false)
 
-
-
-        //List button listener
+        // List button listener
         val listBtn = view.findViewById<ImageButton>(R.id.imgbtn_list)
         listBtn.setOnClickListener {
             (activity as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiary())
         }
 
-        //Bottom sheet
+        // Bottom sheet
         val bottomSheet: LinearLayout by lazy { view.findViewById<LinearLayout>(R.id.bottom_sheet) }
         val txtDate = view.findViewById<TextView>(R.id.txt_date)
         sheetBehavior = BottomSheetBehavior.from(bottomSheet)
         bottomSheetMoveAction()
 
-        //Calendar view
+        // Calendar view
         val calendarView = view.findViewById<MaterialCalendarView>(R.id.calendar)
         calendarView.state().edit()
             .setFirstDayOfWeek(Calendar.SUNDAY) // 일요일부터 시작
             .setCalendarDisplayMode(CalendarMode.MONTHS) // 월별로 표시
 
-        //Get diary list of this month
+        // Get diary list of this month
         val date: String = SimpleDateFormat("yyyy-MM").format(Date())
         getDiaryList(date)
 
+        // Create red dot (today)
         val activity = activity as MainActivity
         calendarView.addDecorators(EventDecorator(Color.RED, activity, dotDates()))
 
+        // Date selected listener
         calendarView.setOnDateChangedListener { widget, selectedDate, selected ->
             Log.d("calendar", selectedDate.day.toString())
             val dateText = selectedDate.year.toString() + "." + (selectedDate.month + 1).toString() + "." + selectedDate.day.toString()
             txtDate.text = dateText
             setDiaryList(selectedDate.day.toString())
         }
-        
+
+        // Month selected listener
         calendarView.setOnMonthChangedListener { widget, selectedDate ->
             val year = selectedDate.year
             val month = selectedDate.month + 1
@@ -105,7 +106,7 @@ class MyDiaryCalendar : Fragment() {
         mRecyclerview?.setHasFixedSize(true)
     }
 
-    //Get diary list of today
+    //Get diary list (day)
     private fun setDiaryList(selectedDate: String) {
         diaryOneDateList.clear()
         for(i in 0 until diaryList.size) {
@@ -115,7 +116,6 @@ class MyDiaryCalendar : Fragment() {
                 diaryOneDateList.add(diaryList[i])
             }
         }
-
         setRecyclerView()
     }
 

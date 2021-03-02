@@ -18,6 +18,9 @@ interface RetrofitService {
     @POST("/diary/save")
     fun saveDiary(@Body data: DiaryData) : Call<DiaryResponse>
 
+    @POST("/post")
+    fun sendPost(@Body data: DiaryData) : Call<DiaryResponse>
+
     @GET("/diary/list")
     fun getDiaryList(@Query("date") date: String) : Call<DiaryListResponse>
 }
