@@ -2,6 +2,7 @@ package com.example.wero_app
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class PostboxAdapter(val context: Context, private val postRecycler : ArrayList<
             intent.putExtra("diaryId", postRecycler[position].diaryId)
             intent.putExtra("userId", postRecycler[position].userToId)
             intent.putExtra("content", postRecycler[position].content)
+            Log.d("postbox", "diaryId: " + postRecycler[position].diaryId.toString())
             context.startActivity(intent)
         }
         holder.bind(listener, postRecycler[position], context)

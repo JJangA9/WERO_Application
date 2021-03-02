@@ -1,11 +1,8 @@
 package com.example.wero_app
 
 import com.google.gson.JsonArray
-import com.google.gson.JsonObject
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.http.*
-import java.sql.Date
 
 interface RetrofitService {
 
@@ -20,6 +17,9 @@ interface RetrofitService {
 
     @POST("/post")
     fun sendPost(@Body data: DiaryData) : Call<DiaryResponse>
+
+    @POST("/post/reply")
+    fun sendReply(@Body data: ReplyData) : Call<ReplyResponse>
 
     @GET("/diary/list")
     fun getDiaryList(@Query("userId") userId: String, @Query("date") date: String) : Call<DiaryListResponse>
@@ -36,6 +36,9 @@ data class JoinResponse(var code: Int, var message: String)
 
 data class DiaryData(var userId: String?, var date: String, var content: String?, var isShared: Int)
 data class DiaryResponse(var code: Int, var message: String)
+
+data class ReplyData(var userId: String?, var diaryId: Int, var replyDate: String, var content: String?)
+data class ReplyResponse(var code: Int, var message: String)
 
 data class DiaryListResponse(var result: JsonArray)
 data class PostListResponse(var result: JsonArray)

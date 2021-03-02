@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class WriteDiary : AppCompatActivity() {
-    val retrofit = Retrofit.Builder()
+    private val retrofit = Retrofit.Builder()
             .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
 
@@ -48,7 +48,6 @@ class WriteDiary : AppCompatActivity() {
             if(checkBoxSend.isChecked) isShared = 1
             putData(DiaryData(kakaoId, date, content, isShared))
 
-            finish()
         }
     }
 
@@ -57,7 +56,6 @@ class WriteDiary : AppCompatActivity() {
         service.saveDiary(data).enqueue(object: Callback<DiaryResponse> {
             override fun onFailure(call: Call<DiaryResponse>, t: Throwable) {
                 Toast.makeText(this@WriteDiary, "저장 실패", Toast.LENGTH_SHORT).show()
-                if(data.isShared == 1) sendPost(data)
                 Log.d("writediary", t.message.toString())
             }
 
@@ -65,6 +63,7 @@ class WriteDiary : AppCompatActivity() {
                 val msg = response.body()
                 if(data.isShared == 1) sendPost(data)
                 Toast.makeText(this@WriteDiary, msg?.message, Toast.LENGTH_SHORT).show()
+                finish()
             }
         })
     }

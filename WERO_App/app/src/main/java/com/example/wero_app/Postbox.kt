@@ -71,7 +71,6 @@ class Postbox : Fragment() {
                         val content = obj.get("content").asString
                         val isShared = obj.get("is_shared").asInt
                         postList.add(PostItem(diaryId, userFromId, userToId, diaryDate, content, isShared))
-                        Log.d("postbox", postList.toString())
                     }
                     setRecyclerView()
                 }
