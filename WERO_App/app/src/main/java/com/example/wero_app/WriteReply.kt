@@ -18,6 +18,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class WriteReply : AppCompatActivity() {
+
+    private val retrofit = Retrofit.Builder()
+            .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +51,6 @@ class WriteReply : AppCompatActivity() {
     }
 
     private fun putData(data: ReplyData) {
-        val retrofit = Retrofit.Builder()
-                .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
-                .addConverterFactory(GsonConverterFactory.create()).build()
         val service = retrofit.create(RetrofitService::class.java)
         service.sendReply(data).enqueue(object: Callback<ReplyResponse> {
             override fun onFailure(call: Call<ReplyResponse>, t: Throwable) {
@@ -57,6 +59,23 @@ class WriteReply : AppCompatActivity() {
             }
 
             override fun onResponse(call: Call<ReplyResponse>, response: Response<ReplyResponse>) {
+                val msg = response.body()
+                Toast.makeText(this@WriteReply, msg?.message, Toast.LENGTH_SHORT).show()
+                data.userId?.let { deleteData(data.diaryId, it) }
+                finish()
+            }
+        })
+    }
+
+    private fun deleteData(diaryId: Int, userId: String) {
+        val service = retrofit.create(RetrofitService::class.java)
+        service.deletePost(diaryId, userId).enqueue(object: Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
+                Toast.makeText(this@WriteReply, "삭제 실패", Toast.LENGTH_SHORT).show()
+                Log.d("writereply", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
                 val msg = response.body()
                 Toast.makeText(this@WriteReply, msg?.message, Toast.LENGTH_SHORT).show()
                 finish()
