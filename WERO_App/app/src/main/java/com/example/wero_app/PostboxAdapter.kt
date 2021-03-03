@@ -26,9 +26,9 @@ class PostboxAdapter(val context: Context, private val postRecycler : ArrayList<
         val listener = View.OnClickListener {
             val intent = Intent(context, WriteReply::class.java)
             intent.putExtra("diaryId", postRecycler[position].diaryId)
-            intent.putExtra("userId", postRecycler[position].userToId)
+            intent.putExtra("userFromId", postRecycler[position].userFromId)
+            intent.putExtra("userToId", postRecycler[position].userToId) // 편지 받는 사람 id
             intent.putExtra("content", postRecycler[position].content)
-            Log.d("postbox", "diaryId: " + postRecycler[position].diaryId.toString())
             context.startActivity(intent)
         }
         holder.bind(listener, postRecycler[position], context)
@@ -46,4 +46,4 @@ class PostboxAdapter(val context: Context, private val postRecycler : ArrayList<
     }
 }
 
-class PostItem(val diaryId: Int, val userFromId: String?, val userToId: String?, val diaryDate: String?, val content: String?, val isShared: Int?)
+class PostItem(val diaryId: Int, val userFromId: String, val userToId: String, val diaryDate: String?, val content: String?, val isShared: Int?)

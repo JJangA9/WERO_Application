@@ -33,7 +33,8 @@ class WriteReply : AppCompatActivity() {
         val ab = supportActionBar!!
         ab.setDisplayShowTitleEnabled(false)
 
-        val userId = intent.getStringExtra("userId")
+        val userFromId = intent.getStringExtra("userToId")!! // 편지 받은 사람 id (reply 보내는 사람)
+        val userToId = intent.getStringExtra("userFromId")!!
         val diaryId = intent.getIntExtra("diaryId", 0)
         val content = intent.getStringExtra("content")
         val date: String = SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(Date())
@@ -46,7 +47,7 @@ class WriteReply : AppCompatActivity() {
 
         txtContent.text = content
         btnReply.setOnClickListener {
-            putData(ReplyData(userId, diaryId, date, editReply.text.toString()))
+            putData(ReplyData(diaryId, userFromId, userToId, date, editReply.text.toString()))
         }
     }
 
@@ -61,7 +62,7 @@ class WriteReply : AppCompatActivity() {
             override fun onResponse(call: Call<ReplyResponse>, response: Response<ReplyResponse>) {
                 val msg = response.body()
                 Toast.makeText(this@WriteReply, msg?.message, Toast.LENGTH_SHORT).show()
-                data.userId?.let { deleteData(data.diaryId, it) }
+                deleteData(data.diaryId, data.userToId)
                 finish()
             }
         })

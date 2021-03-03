@@ -27,6 +27,9 @@ interface RetrofitService {
     @GET("/post/list")
     fun getPostList(@Query("userId") userId: String) : Call<PostListResponse>
 
+    @GET("/reply/list")
+    fun getReplyList(@Query("userId") userId: String) : Call<ReplyItem>
+
     @DELETE("/post")
     fun deletePost(@Query("diaryId") diaryId: Int, @Query("userToId") userToId: String) : Call<ServerResponse>
 }
@@ -40,7 +43,7 @@ data class JoinResponse(var code: Int, var message: String)
 data class DiaryData(var userId: String?, var date: String, var content: String?, var isShared: Int)
 data class DiaryResponse(var code: Int, var message: String)
 
-data class ReplyData(var userId: String?, var diaryId: Int, var replyDate: String, var content: String?)
+data class ReplyData(var diaryId: Int, var userFromId: String?, val userToId: String, var replyDate: String, var content: String?)
 data class ReplyResponse(var code: Int, var message: String)
 
 data class DiaryListResponse(var result: JsonArray)

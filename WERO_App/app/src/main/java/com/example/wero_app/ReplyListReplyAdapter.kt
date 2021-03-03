@@ -33,11 +33,6 @@ class ReplyListReplyAdapter(val context: Context, private val replyRecycler : Ar
         holder.bind(listener, replyRecycler[position], context)
     }
 
-    inner class setSize(v: View) {
-        val r = v.findViewById<TextView>(R.id.txt_reply)
-
-    }
-
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val reply = itemView.findViewById<TextView>(R.id.txt_reply)
 

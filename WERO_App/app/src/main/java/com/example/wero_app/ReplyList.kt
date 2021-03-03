@@ -30,7 +30,12 @@ class ReplyList : AppCompatActivity() {
         mRecyclerview.setHasFixedSize(true)
 
     }
+
+    fun getReplyList() {
+
+    }
 }
 
 class ReplyListRecyclerViewContentItem (val content: String)
 class ReplyListRecyclerViewReplyItem (val reply: String)
+class ReplyItem(val replyId: Int, val diaryId: Int, val userId: String, val replyDate: String, val content: String, val isShared: Int, val isChecked: Int)
