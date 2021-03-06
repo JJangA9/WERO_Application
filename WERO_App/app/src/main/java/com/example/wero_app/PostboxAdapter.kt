@@ -46,4 +46,3 @@ class PostboxAdapter(val context: Context, private val postRecycler : ArrayList<
     }
 }
 
-class PostItem(val diaryId: Int, val userFromId: String, val userToId: String, val diaryDate: String?, val content: String?, val isShared: Int?)

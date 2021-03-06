@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
-        fromReplyList()
+        replyListToDiary()
 
         kakaoId = intent.getStringExtra("kakaoId")
         if (kakaoId != null) {
@@ -110,15 +110,6 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
-    private fun fromReplyList() {
-        fragType = intent.getIntExtra("fragType", 0)
-        if(fragType == 1) {
-            val fab: FloatingActionButton = findViewById(R.id.fab)
-            fab.hide()
-            changeFragmentNoBackStack(R.id.fragment, DiaryPage())
-        }
-    }
-
 
     fun changeFragmentHasBackStack(id: Int, frag: Fragment) {
         supportFragmentManager.beginTransaction()
@@ -135,14 +126,21 @@ class MainActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun listToDiary(id: Int, frag: Fragment, data: DiaryItem) {
+    private fun replyListToDiary() {
+        fragType = intent.getIntExtra("fragType", 0)
+        val diaryId = intent.getIntExtra("diaryId", 0)
+        if(fragType == 1) {
+            val fab: FloatingActionButton = findViewById(R.id.fab)
+            fab.hide()
+            listToDiary(R.id.fragment, DiaryPage(), diaryId)
+        }
+    }
+
+    fun listToDiary(id: Int, frag: Fragment, diaryId: Int) {
         supportFragmentManager.beginTransaction()
                 .replace(id, frag.apply{
                     arguments = Bundle().apply {
-                        putInt("diaryId", data.diaryId)
-                        putString("diaryDate", data.diaryDate)
-                        putString("content", data.content)
-                        putInt("isShared", data.isShared)
+                        putInt("diaryId", diaryId)
                     }
                 })
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)

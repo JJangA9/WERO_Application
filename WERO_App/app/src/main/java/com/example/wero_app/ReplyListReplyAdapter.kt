@@ -28,6 +28,7 @@ class ReplyListReplyAdapter(val context: Context, private val replyRecycler : Ar
             val intent = Intent(context, MainActivity::class.java)
             //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("fragType", 1)
+            intent.putExtra("diaryId", replyRecycler[position].diaryId)
             context.startActivity(intent)
         }
         holder.bind(listener, replyRecycler[position], context)

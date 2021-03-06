@@ -23,7 +23,7 @@ class MyDiaryAdapter(val context: Context, private val diaryRecycler : ArrayList
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val listener = View.OnClickListener {
-            (getActivity(context) as MainActivity).listToDiary(R.id.my_diary, DiaryPage(), diaryRecycler[position])
+            (getActivity(context) as MainActivity).listToDiary(R.id.my_diary, DiaryPage(), diaryRecycler[position].diaryId)
         }
         holder.bind(listener, diaryRecycler[position], context)
     }
@@ -40,4 +40,3 @@ class MyDiaryAdapter(val context: Context, private val diaryRecycler : ArrayList
     }
 
 }
-data class DiaryItem(var diaryId: Int, var userId: String, var diaryDate: String, var content: String, var isShared: Int)

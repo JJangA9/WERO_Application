@@ -17,8 +17,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="25dp"
             android:textColor="@color/black"
-            android:textSize="13sp"
-            android:text="21.02.09"/>
+            android:textSize="13sp"/>
         <TextView
             android:id="@+id/txt_content"
             android:background="@drawable/postbox_textview_edge"
@@ -31,8 +30,7 @@
             android:lineSpacingExtra="5dp"
             android:padding="15dp"
             android:textSize="12sp"
-            android:textColor="@color/subColor"
-            android:text="text_test_content"/>
+            android:textColor="@color/subColor"/>
         <Button
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"

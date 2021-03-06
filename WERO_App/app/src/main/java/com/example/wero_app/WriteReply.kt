@@ -62,7 +62,7 @@ class WriteReply : AppCompatActivity() {
             override fun onResponse(call: Call<ReplyResponse>, response: Response<ReplyResponse>) {
                 val msg = response.body()
                 Toast.makeText(this@WriteReply, msg?.message, Toast.LENGTH_SHORT).show()
-                deleteData(data.diaryId, data.userToId)
+                deleteData(data.diaryId, data.userFromId!!)
                 finish()
             }
         })

@@ -23,7 +23,7 @@ class MyDiaryCalendarAdapter (val context: Context, private val diaryRecycler : 
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val listener = View.OnClickListener {
-            (ContextUtils.getActivity(context) as MainActivity).listToDiary(R.id.my_diary_layout, DiaryPage(), diaryRecycler[position])
+            (ContextUtils.getActivity(context) as MainActivity).listToDiary(R.id.my_diary_layout, DiaryPage(), diaryRecycler[position].diaryId)
         }
         holder.bind(listener, diaryRecycler[position], context)
     }

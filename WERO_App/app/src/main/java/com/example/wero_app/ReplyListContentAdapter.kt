@@ -46,7 +46,7 @@ class ReplyListContentAdapter(val context: Context, val contentRecycler : ArrayL
 
             for(i in 0 until replyItemList.size) {
                 if(contentItem.diaryId == replyItemList[i].diaryId) replyList.add(
-                    ReplyListRecyclerViewReplyItem(replyItemList[i].reply)
+                    ReplyListRecyclerViewReplyItem(replyItemList[i].reply, replyItemList[i].diaryId)
                 )
             }
             val replyAdapter = ReplyListReplyAdapter(context, replyList)

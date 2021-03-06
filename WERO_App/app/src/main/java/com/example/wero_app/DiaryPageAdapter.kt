@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DiaryPageAdapter(val context: Context, private val replyRecycler : ArrayList<DiaryPageRecyclerViewItem>) : RecyclerView.Adapter<DiaryPageAdapter.Holder>()  {
+class DiaryPageAdapter(val context: Context, private val replyRecycler : ArrayList<ReplyItem>) : RecyclerView.Adapter<DiaryPageAdapter.Holder>()  {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.diary_page_recyclerview_item, parent, false)
@@ -23,13 +23,12 @@ class DiaryPageAdapter(val context: Context, private val replyRecycler : ArrayLi
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val letter = itemView.findViewById<TextView>(R.id.txt_content)
+        private val post = itemView.findViewById<TextView>(R.id.txt_content)
 
-        fun bind(replyItem : DiaryPageRecyclerViewItem, context: Context) {
-            letter.text = replyItem.letter
+        fun bind(replyItem : ReplyItem, context: Context) {
+            post.text = replyItem.reply
         }
     }
 }
 
-class DiaryPageRecyclerViewItem(val letter: String) {
-}
+class DiaryPageRecyclerViewItem(val post: String)

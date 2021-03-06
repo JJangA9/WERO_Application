@@ -53,13 +53,13 @@ class WriteDiary : AppCompatActivity() {
 
     private fun putData(data: DiaryData) {
         val service = retrofit.create(RetrofitService::class.java)
-        service.saveDiary(data).enqueue(object: Callback<DiaryResponse> {
-            override fun onFailure(call: Call<DiaryResponse>, t: Throwable) {
+        service.saveDiary(data).enqueue(object: Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
                 Toast.makeText(this@WriteDiary, "저장 실패", Toast.LENGTH_SHORT).show()
                 Log.d("writediary", t.message.toString())
             }
 
-            override fun onResponse(call: Call<DiaryResponse>, response: Response<DiaryResponse>) {
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
                 val msg = response.body()
                 if(data.isShared == 1) sendPost(data)
                 Toast.makeText(this@WriteDiary, msg?.message, Toast.LENGTH_SHORT).show()
@@ -70,12 +70,12 @@ class WriteDiary : AppCompatActivity() {
 
     private fun sendPost(data: DiaryData) {
         val service = retrofit.create(RetrofitService::class.java)
-        service.sendPost(data).enqueue(object: Callback<DiaryResponse> {
-            override fun onFailure(call: Call<DiaryResponse>, t: Throwable) {
+        service.sendPost(data).enqueue(object: Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
                 Toast.makeText(this@WriteDiary, "전송 실패", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<DiaryResponse>, response: Response<DiaryResponse>) {
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
                 val msg = response.body()
                 Toast.makeText(this@WriteDiary, msg?.message, Toast.LENGTH_SHORT).show()
             }

@@ -1,22 +1,17 @@
 package com.example.wero_app
 
-import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import com.kakao.sdk.user.UserApiClient
-import kotlinx.android.parcel.Parcelize
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.Serializable
 
 class ReplyList : AppCompatActivity() {
 
@@ -43,7 +38,7 @@ class ReplyList : AppCompatActivity() {
 
     }
 
-    fun getReplyList(userId: String) {
+    private fun getReplyList(userId: String) {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
@@ -97,8 +92,7 @@ class ReplyList : AppCompatActivity() {
 }
 
 class ReplyListRecyclerViewContentItem (val diaryId: Int, val content: String)
-class ReplyListRecyclerViewReplyItem (val reply: String)
+class ReplyListRecyclerViewReplyItem (val reply: String, val diaryId: Int)
 
-data class ReplyItem(val replyId: Int, val diaryId: Int, val userFromId: String,
-                     val userToId: String, val replyDate: String, val content: String, val reply: String) : Serializable
+
 
