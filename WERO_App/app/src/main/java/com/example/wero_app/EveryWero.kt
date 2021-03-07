@@ -2,18 +2,23 @@ package com.example.wero_app
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class EveryWero : Fragment() {
 
     lateinit var mcontext: Context
-    var letterList = arrayListOf<EveryWeroRecyclerViewItem>()
+    private var weroList = arrayListOf<WeroItem>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -27,23 +32,48 @@ class EveryWero : Fragment() {
 
         val view = inflater.inflate(R.layout.every_wero,container,false)
 
-        letterList = arrayListOf<EveryWeroRecyclerViewItem>(
-                EveryWeroRecyclerViewItem("고민들어줘", "곱창 ! 껍데기 ! 닭발 ! 소주 ! \n 배고팡", "21"),
-                EveryWeroRecyclerViewItem("취뽀", "취업시켜주세요 ~ ~ ~ ~ ", "12"),
-                EveryWeroRecyclerViewItem("슬퍼", "Congratulation 넌 참 대단해 \n"
-                        + "Congratulation 어쩜 그렇게 \n"
-                        + "아무렇지 않아 하며 날 짓밟아 \n웃는 얼굴을 보니 다 잊었나봐", "10")
-        )
-
-        val mAdapter = EveryWeroAdapter(mcontext, letterList)
-        val mRecyclerview = view.findViewById<RecyclerView>(R.id.recycler_every)
-        mRecyclerview.adapter = mAdapter
-
-        val lm = LinearLayoutManager(mcontext)
-        mRecyclerview.layoutManager = lm
-        mRecyclerview.setHasFixedSize(true)
-
+        getWeroList()
 
         return view
+    }
+
+    private fun getWeroList() {
+        val service = (activity as MainActivity).service
+        service.getWeroList().enqueue(object : Callback<JsonArrayResponse> {
+            override fun onFailure(call: Call<JsonArrayResponse>, t: Throwable) {
+                Log.d("everywero", "get failure")
+            }
+
+            override fun onResponse(call: Call<JsonArrayResponse>, response: Response<JsonArrayResponse>) {
+                val list = response.body()
+                val arr = list?.result
+                if (arr != null) {
+                    Log.d("everywero", arr.toString())
+
+                    for(i in 0 until arr.size()) {
+                        val obj: JsonObject = arr.get(i) as JsonObject
+                        val replyId = obj.get("reply_id").asInt
+                        val userId = obj.get("user_from_id").asString
+                        val userName = obj.get("user_name").asString
+                        val content = obj.get("content").asString
+                        val heart = obj.get("heart").asInt
+                        weroList.add(WeroItem(replyId, userId, userName, content, heart))
+                    }
+                    setRecyclerView()
+                } else {
+                    Log.d("everywero", "null")
+                }
+            }
+        })
+    }
+
+    private fun setRecyclerView() {
+        val mAdapter = EveryWeroAdapter(mcontext, weroList)
+        val mRecyclerview = view?.findViewById<RecyclerView>(R.id.recycler_every)
+        mRecyclerview?.adapter = mAdapter
+
+        val lm = LinearLayoutManager(mcontext)
+        mRecyclerview?.layoutManager = lm
+        mRecyclerview?.setHasFixedSize(true)
     }
 }
