@@ -6,73 +6,76 @@
     android:background="@color/mainColor"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/img_post"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="5dp"
-        android:src="@drawable/email"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:id="@+id/txt_nickname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="10dp"
-        android:text="나힘들어"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        app:layout_constraintLeft_toRightOf="@id/img_post"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_wero_of"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="2dp"
-        android:text="님의 위로"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        app:layout_constraintLeft_toRightOf="@id/txt_nickname"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_heart"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="5dp"
-        android:background="@drawable/everywero_heartbutton"
-        app:layout_constraintRight_toLeftOf="@id/txt_heart_number"
-        app:layout_constraintBottom_toBottomOf="@+id/img_post"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/txt_heart_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="21"
-        android:textSize="15sp"
-        android:textColor="@color/black"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="@+id/nickName"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-        android:id="@+id/txt_wero"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="코로나 때문에 힘들다\n곱창 족발 껍데기 닭발 ! ! ! !"
-        android:textColor="@color/subColor"
-        android:textSize="12sp"
-        android:padding="15dp"
-        android:layout_marginTop="5dp"
-        android:lineSpacingExtra="5dp"
-        android:background="@drawable/postbox_textview_edge"
-        app:layout_constraintTop_toBottomOf="@id/img_post"/>
+        android:layout_height="match_parent">
+
+        <!--
+        <ImageView
+            android:id="@+id/img_post"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="5dp"
+            android:src="@drawable/mail"
+            app:layout_constraintStart_toStartOf="parent"/>-->
+
+        <TextView
+            android:id="@+id/txt_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:text="나힘들어"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_alignBottom="@+id/img_post"/>
+
+        <TextView
+            android:id="@+id/txt_wero_of"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="2dp"
+            android:text="님의 위로"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/txt_nickname"
+            android:layout_alignBottom="@+id/img_post"/>
+
+        <TextView
+            android:id="@+id/txt_heart_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="21"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_toStartOf="@+id/btn_heart"/>
+
+        <Button
+            android:id="@+id/btn_heart"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/heart"
+            android:layout_alignBottom="@+id/txt_nickname"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:id="@+id/txt_wero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="코로나 때문에 힘들다\n곱창 족발 껍데기 닭발 ! ! ! !"
+            android:textColor="@color/subColor"
+            android:textSize="12sp"
+            android:padding="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:lineSpacingExtra="5dp"
+            android:background="@drawable/postbox_textview_edge"
+            android:layout_below="@+id/txt_nickname"/>
+    </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
