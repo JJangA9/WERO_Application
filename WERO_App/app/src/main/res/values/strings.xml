@@ -30,6 +30,8 @@
 
     <string name="reply">답장</string>
     <string name="edit">수정하기</string>
+    <string name="share">공유하기</string>
+    <string name="report">신고하기</string>
 
     <string name="settings">설정</string>
 

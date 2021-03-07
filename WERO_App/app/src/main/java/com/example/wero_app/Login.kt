@@ -81,13 +81,13 @@ class Login : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create()).build()
 
         val service = retrofit.create(RetrofitService::class.java)
-        service.userJoin(data).enqueue(object: Callback<JoinResponse> {
-            override fun onFailure(call: Call<JoinResponse>, t: Throwable) {
+        service.userJoin(data).enqueue(object: Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
                 Log.d("server", t.message.toString())
                 Toast.makeText(this@Login, "가입에 실패했습니다", Toast.LENGTH_SHORT).show()
             }
 
-            override fun onResponse(call: Call<JoinResponse>, response: Response<JoinResponse>) {
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
                 val login = response.body()
                 Toast.makeText(this@Login, login?.message, Toast.LENGTH_SHORT).show()
             }

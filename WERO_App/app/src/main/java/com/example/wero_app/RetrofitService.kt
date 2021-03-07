@@ -6,11 +6,8 @@ import retrofit2.http.*
 
 interface RetrofitService {
 
-    @POST("/user/login")
-    fun userLogin(@Body data: LoginData) : Call<LoginResponse>
-
     @POST("/user/join")
-    fun userJoin(@Body data: JoinData) : Call<JoinResponse>
+    fun userJoin(@Body data: JoinData) : Call<ServerResponse>
 
     @POST("/diary/save")
     fun saveDiary(@Body data: DiaryData) : Call<ServerResponse>
@@ -19,44 +16,44 @@ interface RetrofitService {
     fun sendPost(@Body data: DiaryData) : Call<ServerResponse>
 
     @POST("/post/reply")
-    fun sendReply(@Body data: ReplyData) : Call<ReplyResponse>
+    fun sendReply(@Body data: ReplyData) : Call<ServerResponse>
+
+
+    @POST("/reply")
+    fun shareReply(@Body data: ReplyIdData) : Call<ServerResponse>
+
 
     @GET("/diary")
-    fun getDiary(@Query("diaryId") diaryId: Int) : Call<DiaryResponse>
+    fun getDiary(@Query("diaryId") diaryId: Int) : Call<JsonArrayResponse>
 
     @GET("/reply")
-    fun getReply(@Query("diaryId") diaryId: Int) : Call<DiaryResponse>
+    fun getReply(@Query("diaryId") diaryId: Int) : Call<JsonArrayResponse>
 
     @GET("/diary/list")
-    fun getDiaryList(@Query("userId") userId: String, @Query("date") date: String) : Call<DiaryListResponse>
+    fun getDiaryList(@Query("userId") userId: String, @Query("date") date: String) : Call<JsonArrayResponse>
 
     @GET("/post/list")
-    fun getPostList(@Query("userId") userId: String) : Call<PostListResponse>
+    fun getPostList(@Query("userId") userId: String) : Call<JsonArrayResponse>
 
     @GET("/reply/list")
-    fun getReplyList(@Query("userId") userId: String) : Call<ReplyListResponse>
+    fun getReplyList(@Query("userId") userId: String) : Call<JsonArrayResponse>
+
+    @GET("/wero/list")
+    fun getWeroList() : Call<JsonArrayResponse>
+
 
     @DELETE("/post")
     fun deletePost(@Query("diaryId") diaryId: Int, @Query("userToId") userToId: String) : Call<ServerResponse>
 
+
 }
 
-data class LoginData(var userEmail: String, var userPwd: String)
-data class LoginResponse(var code: Int, var message: String, var userId: Int)
-
 data class JoinData(var kakaoId: String)
-data class JoinResponse(var code: Int, var message: String)
-
 data class DiaryData(var userId: String?, var date: String, var content: String?, var isShared: Int)
-
 data class ReplyData(var diaryId: Int, var userFromId: String?, val userToId: String, var replyDate: String, var content: String?)
-data class ReplyResponse(var code: Int, var message: String)
+data class ReplyIdData(var replyId: Int)
 
-data class DiaryListResponse(var result: JsonArray)
-data class PostListResponse(var result: JsonArray)
-data class ReplyListResponse(var result: JsonArray)
-data class DiaryResponse(var result: JsonArray)
-
+data class JsonArrayResponse(var result: JsonArray)
 data class ServerResponse(var code: Int, var message: String)
 
 data class DiaryItem(var diaryId: Int, var userId: String, var diaryDate: String, var content: String, var isShared: Int)

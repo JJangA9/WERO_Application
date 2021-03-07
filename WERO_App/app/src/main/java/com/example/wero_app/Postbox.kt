@@ -50,12 +50,12 @@ class Postbox : Fragment() {
 
     private fun getPostList(data: String) {
         val service = (activity as MainActivity).service
-        service.getPostList(data).enqueue(object : Callback<PostListResponse> {
-            override fun onFailure(call: Call<PostListResponse>, t: Throwable) {
+        service.getPostList(data).enqueue(object : Callback<JsonArrayResponse> {
+            override fun onFailure(call: Call<JsonArrayResponse>, t: Throwable) {
                 Log.d("postbox", "get failure")
             }
 
-            override fun onResponse(call: Call<PostListResponse>, response: Response<PostListResponse>) {
+            override fun onResponse(call: Call<JsonArrayResponse>, response: Response<JsonArrayResponse>) {
                 val list = response.body()
                 val arr = list?.result
                 if (list != null) {

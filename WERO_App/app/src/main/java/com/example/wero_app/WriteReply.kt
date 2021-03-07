@@ -53,13 +53,13 @@ class WriteReply : AppCompatActivity() {
 
     private fun putData(data: ReplyData) {
         val service = retrofit.create(RetrofitService::class.java)
-        service.sendReply(data).enqueue(object: Callback<ReplyResponse> {
-            override fun onFailure(call: Call<ReplyResponse>, t: Throwable) {
+        service.sendReply(data).enqueue(object: Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
                 Toast.makeText(this@WriteReply, "전송 실패", Toast.LENGTH_SHORT).show()
                 Log.d("writereply", t.message.toString())
             }
 
-            override fun onResponse(call: Call<ReplyResponse>, response: Response<ReplyResponse>) {
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
                 val msg = response.body()
                 Toast.makeText(this@WriteReply, msg?.message, Toast.LENGTH_SHORT).show()
                 deleteData(data.diaryId, data.userFromId!!)

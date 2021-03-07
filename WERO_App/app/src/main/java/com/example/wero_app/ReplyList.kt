@@ -43,12 +43,12 @@ class ReplyList : AppCompatActivity() {
             .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
         val service = retrofit.create(RetrofitService::class.java)
-        service.getReplyList(userId).enqueue(object : Callback<ReplyListResponse> {
-            override fun onFailure(call: Call<ReplyListResponse>, t: Throwable) {
+        service.getReplyList(userId).enqueue(object : Callback<JsonArrayResponse> {
+            override fun onFailure(call: Call<JsonArrayResponse>, t: Throwable) {
                 Log.d("replylist", "get failure")
             }
 
-            override fun onResponse(call: Call<ReplyListResponse>, response: Response<ReplyListResponse>) {
+            override fun onResponse(call: Call<JsonArrayResponse>, response: Response<JsonArrayResponse>) {
                 val list = response.body()
                 val arr = list?.result
                 if (list != null) {

@@ -64,12 +64,12 @@ class DiaryPage : Fragment() {
 
     private fun getReplyData() {
         val service = (activity as MainActivity).service
-        service.getReply(diaryId).enqueue(object : Callback<DiaryResponse> {
-            override fun onFailure(call: Call<DiaryResponse>, t: Throwable) {
+        service.getReply(diaryId).enqueue(object : Callback<JsonArrayResponse> {
+            override fun onFailure(call: Call<JsonArrayResponse>, t: Throwable) {
                 Log.d("diarypage", "get failure")
             }
 
-            override fun onResponse(call: Call<DiaryResponse>, response: Response<DiaryResponse>) {
+            override fun onResponse(call: Call<JsonArrayResponse>, response: Response<JsonArrayResponse>) {
                 val list = response.body()
                 val arr = list?.result
                 if (list != null) {
@@ -95,12 +95,12 @@ class DiaryPage : Fragment() {
 
     private fun getDiaryData() {
         val service = (activity as MainActivity).service
-        service.getDiary(diaryId).enqueue(object : Callback<DiaryResponse> {
-            override fun onFailure(call: Call<DiaryResponse>, t: Throwable) {
+        service.getDiary(diaryId).enqueue(object : Callback<JsonArrayResponse> {
+            override fun onFailure(call: Call<JsonArrayResponse>, t: Throwable) {
                 Log.d("diarypage", "get failure")
             }
 
-            override fun onResponse(call: Call<DiaryResponse>, response: Response<DiaryResponse>) {
+            override fun onResponse(call: Call<JsonArrayResponse>, response: Response<JsonArrayResponse>) {
                 val list = response.body()
                 val arr = list?.result
                 if (arr != null) {
