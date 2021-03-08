@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -31,8 +32,15 @@ class EveryWero : Fragment() {
         savedInstanceState: Bundle?): View {
 
         val view = inflater.inflate(R.layout.every_wero,container,false)
+        val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
 
         getWeroList()
+
+        swipe.setOnRefreshListener {
+            weroList.clear()
+            getWeroList()
+            swipe.isRefreshing = false
+        }
 
         return view
     }

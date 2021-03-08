@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.JsonObject
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
@@ -41,14 +42,16 @@ class MyDiary : Fragment() {
 
         val txtDate: TextView = view.findViewById(R.id.txt_yymm)
         val imageButton = view.findViewById<ImageButton>(R.id.imgbtn_calender)
+        val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
 
         txtDate.text = SimpleDateFormat("yyyy년 MM월").format(Date())
         imageButton.setOnClickListener {
             (activity as MainActivity).changeFragmentNoBackStack(R.id.my_diary, MyDiaryCalendar())
         }
 
+        // get diary list
         val date: String = SimpleDateFormat("yyyy-MM").format(Date())
-        var userId: String?
+        var userId: String? = null
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.d("mydiary", "사용자 정보 요청 실패", error)
@@ -57,6 +60,13 @@ class MyDiary : Fragment() {
                 userId = user?.id?.toString()
                 userId?.let { getDiaryList(it, date) }
             }
+        }
+
+        // swipe to refresh
+        swipe.setOnRefreshListener {
+            diaryList.clear()
+            userId?.let { getDiaryList(it, date) }
+            swipe.isRefreshing = false
         }
 
         return view

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.JsonObject
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
@@ -32,6 +33,8 @@ class Postbox : Fragment() {
 
         val view = inflater.inflate(R.layout.postbox,container,false)
 
+        val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
+
         var userId: String? = null
         // 사용자 정보 요청 (기본)
         UserApiClient.instance.me { user, error ->
@@ -43,6 +46,13 @@ class Postbox : Fragment() {
                 Log.d("postbox", userId!!)
                 userId?.let { getPostList(it) }
             }
+        }
+
+        // swipe to refresh
+        swipe.setOnRefreshListener {
+            postList.clear()
+            userId?.let { getPostList(it) }
+            swipe.isRefreshing = false
         }
 
         return view

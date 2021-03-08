@@ -44,6 +44,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     //카카오 SDK 모듈
     implementation "com.kakao.sdk:v2-user:2.2.0" // 카카오 로그인
