@@ -1,12 +1,16 @@
 package com.example.wero_app
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +19,7 @@ import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 class DiaryPage : Fragment() {
 
@@ -25,6 +30,8 @@ class DiaryPage : Fragment() {
 
     lateinit var txtDate: TextView
     lateinit var txtContent: TextView
+    lateinit var btnEdit: Button
+    lateinit var btnDelete: Button
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,12 +45,17 @@ class DiaryPage : Fragment() {
 
         val view = inflater.inflate(R.layout.diary_page,container,false)
 
-        txtDate = view.findViewById<TextView>(R.id.txt_date)
-        txtContent = view.findViewById<TextView>(R.id.txt_content)
+        txtDate = view.findViewById(R.id.txt_date)
+        txtContent = view.findViewById(R.id.txt_content)
+        btnEdit = view.findViewById(R.id.btn_edit)
+        btnDelete = view.findViewById(R.id.btn_delete)
 
         diaryId = arguments?.getInt("diaryId")!!
         getDiaryData()
         getReplyData()
+
+        btnEdit.setOnClickListener {  }
+        btnDelete.setOnClickListener { deleteAlert() }
 
         return view
     }
@@ -60,6 +72,39 @@ class DiaryPage : Fragment() {
                 userId.let {  }
             }
         }
+    }
+
+    private fun deleteAlert() {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+        builder.setTitle("일기를 삭제하실 건가요?")
+
+        builder.setPositiveButton("네") { dialog, id ->
+            deleteDiary()
+        }
+        builder.setNegativeButton("아니요") { dialog, id ->
+
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun deleteDiary() {
+        val service = (activity as MainActivity).service
+        service.deleteDiary(diaryId).enqueue(object : Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
+                Log.d("diarypage", "delete failure")
+            }
+
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
+                val msg = response.body()
+                Log.d("diarypage", msg?.message.toString())
+                Toast.makeText(activity, msg?.message, Toast.LENGTH_SHORT).show()
+                val fragmentManager = (activity as MainActivity).supportFragmentManager
+                fragmentManager.beginTransaction().remove(this@DiaryPage).commit()
+                fragmentManager.popBackStack()
+            }
+        })
     }
 
     private fun getReplyData() {

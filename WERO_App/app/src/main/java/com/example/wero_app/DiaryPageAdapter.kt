@@ -23,6 +23,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class DiaryPageAdapter(val context: Context, private val replyRecycler : ArrayList<ReplyItem>) : RecyclerView.Adapter<DiaryPageAdapter.Holder>()  {
 
+    //retrofit
+    private val retrofit = Retrofit.Builder()
+            .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+    private val service = retrofit.create(RetrofitService::class.java)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context).inflate(R.layout.diary_page_recyclerview_item, parent, false)
         return Holder(view)
@@ -54,6 +60,7 @@ class DiaryPageAdapter(val context: Context, private val replyRecycler : ArrayLi
         val view = inflater.inflate(R.layout.diary_page_alert, null)
         val btnShare = view.findViewById<Button>(R.id.btn_share)
         val btnReport = view.findViewById<Button>(R.id.btn_report)
+        val btnDelete = view.findViewById<Button>(R.id.btn_delete)
 
         val alertDialog = AlertDialog.Builder(context)
                 .create()
@@ -63,15 +70,43 @@ class DiaryPageAdapter(val context: Context, private val replyRecycler : ArrayLi
         btnShare.setOnClickListener {
             Toast.makeText(context, "gg", Toast.LENGTH_SHORT).show()
             shareReply(ReplyIdData(replyId))
+            alertDialog.dismiss()
+        }
+        btnDelete.setOnClickListener {
+            deleteAlert(replyId)
+            alertDialog.dismiss()
         }
     }
 
+    private fun deleteAlert(replyId: Int) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(context)
+        builder.setTitle("답장을 삭제하실 건가요?")
+
+        builder.setPositiveButton("네") { dialog, id ->
+            deleteReply(replyId)
+        }
+        builder.setNegativeButton("아니요") { dialog, id ->
+
+        }
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun deleteReply(replyId: Int) {
+        service.deleteReply(replyId).enqueue(object : Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
+                Log.d("diarypage", "delete failure")
+            }
+
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
+                val msg = response.body()
+                Log.d("diarypage", msg?.message.toString())
+            }
+        })
+    }
+
     private fun shareReply(data: ReplyIdData) {
-        //retrofit
-        val retrofit = Retrofit.Builder()
-                .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
-                .addConverterFactory(GsonConverterFactory.create()).build()
-        val service = retrofit.create(RetrofitService::class.java)
         service.shareReply(data).enqueue(object : Callback<ServerResponse> {
             override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
                 Log.d("diarypage", "get failure")

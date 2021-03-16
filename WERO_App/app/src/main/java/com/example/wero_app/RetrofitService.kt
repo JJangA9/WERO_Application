@@ -45,6 +45,12 @@ interface RetrofitService {
     @DELETE("/post")
     fun deletePost(@Query("diaryId") diaryId: Int, @Query("userToId") userToId: String) : Call<ServerResponse>
 
+    @DELETE("/diary")
+    fun deleteDiary(@Query("diaryId") diaryId: Int) : Call<ServerResponse>
+
+    @DELETE("/reply")
+    fun deleteReply(@Query("replyId") replyId: Int) : Call<ServerResponse>
+
 
 }
 
