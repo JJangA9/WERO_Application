@@ -31,8 +31,8 @@
     <string name="reply">답장</string>
     <string name="edit">수정</string>
     <string name="delete">삭제</string>
-    <string name="share">공유하기</string>
-    <string name="report">신고하기</string>
+    <string name="share">공유</string>
+    <string name="report">신고</string>
 
     <string name="settings">설정</string>
 
