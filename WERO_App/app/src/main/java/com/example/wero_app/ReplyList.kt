@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.JsonObject
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
@@ -17,6 +18,8 @@ class ReplyList : AppCompatActivity() {
 
     var contentList = arrayListOf<ReplyListRecyclerViewContentItem>()
     var replyItemList = arrayListOf<ReplyItem>()
+
+    lateinit var swipe: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -35,7 +38,13 @@ class ReplyList : AppCompatActivity() {
             }
         }
 
-
+        swipe = findViewById(R.id.swipe)
+        swipe.setOnRefreshListener {
+            contentList.clear()
+            replyItemList.clear()
+            userId?.let { getReplyList(it) }
+            swipe.isRefreshing = false
+        }
     }
 
     private fun getReplyList(userId: String) {

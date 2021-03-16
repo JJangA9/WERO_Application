@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.JsonObject
 import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
@@ -32,6 +33,7 @@ class DiaryPage : Fragment() {
     lateinit var txtContent: TextView
     lateinit var btnEdit: Button
     lateinit var btnDelete: Button
+    lateinit var swipe: SwipeRefreshLayout
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,6 +47,7 @@ class DiaryPage : Fragment() {
 
         val view = inflater.inflate(R.layout.diary_page,container,false)
 
+        swipe = view.findViewById(R.id.swipe)
         txtDate = view.findViewById(R.id.txt_date)
         txtContent = view.findViewById(R.id.txt_content)
         btnEdit = view.findViewById(R.id.btn_edit)
@@ -57,6 +60,10 @@ class DiaryPage : Fragment() {
         btnEdit.setOnClickListener {  }
         btnDelete.setOnClickListener { deleteAlert() }
 
+        swipe.setOnRefreshListener {
+            getReplyData()
+            swipe.isRefreshing = false
+        }
         return view
     }
 
@@ -69,7 +76,6 @@ class DiaryPage : Fragment() {
             else if (user != null) {
                 userId = user.id.toString()
                 Log.d("diarypage", userId)
-                userId.let {  }
             }
         }
     }

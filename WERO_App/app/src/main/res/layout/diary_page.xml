@@ -63,14 +63,20 @@
             android:textColor="@color/black"
             android:textSize="13sp"
             android:text="@string/reply"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_reply"
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/txt_reply"
             android:layout_marginRight="25dp"
             android:layout_marginBottom="25dp"
-            android:layout_marginLeft="25dp"/>
+            android:layout_marginLeft="25dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_reply"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@
     <string name="null_date">날짜를 선택해 주세요!</string>
 
     <string name="write_diary">일기 쓰기</string>
-
+    <string name="edit_diary">일기를 입력해 주세요!</string>
     <string name="save">저장하기</string>
     <string name="want_send">편지 보낼래요!</string>
 

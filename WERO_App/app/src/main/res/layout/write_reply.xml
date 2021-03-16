@@ -33,7 +33,7 @@
             android:lineSpacingExtra="5dp"
             android:padding="15dp"
             android:textSize="12sp"
-            android:text="text_test_content"/>
+            android:text="@string/null_content"/>
         <EditText
             android:id="@+id/edit_reply"
             android:background="@drawable/edit_border"

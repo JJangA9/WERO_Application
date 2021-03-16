@@ -42,9 +42,9 @@
             android:layout_below="@+id/btn_date"
             android:lineSpacingExtra="5dp"
             android:fontFamily="@font/ridibatang"
-            android:textSize="15sp"
-            android:textColor="@color/subColor"
-            android:hint="test_content"/>
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:hint="@string/edit_diary"/>
 
         <Button
             android:id="@+id/btn_save"
