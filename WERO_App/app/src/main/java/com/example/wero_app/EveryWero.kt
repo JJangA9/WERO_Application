@@ -45,6 +45,12 @@ class EveryWero : Fragment() {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+        weroList.clear()
+        getWeroList()
+    }
+
     private fun getWeroList() {
         val service = (activity as MainActivity).service
         service.getWeroList().enqueue(object : Callback<JsonArrayResponse> {

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.gson.JsonObject
 import com.kakao.sdk.user.UserApiClient
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,6 +27,13 @@ class MyDiary : Fragment() {
 
     lateinit var mcontext: Context
     var diaryList = arrayListOf<DiaryItem>()
+
+    lateinit var txtDate: TextView
+    lateinit var imageButton: ImageButton
+    lateinit var swipe: SwipeRefreshLayout
+
+    private var userId: String? = null
+    private var date: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -40,9 +48,9 @@ class MyDiary : Fragment() {
 
         val view = inflater.inflate(R.layout.my_diary,container,false)
 
-        val txtDate: TextView = view.findViewById(R.id.txt_yymm)
-        val imageButton = view.findViewById<ImageButton>(R.id.imgbtn_calender)
-        val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
+        txtDate = view.findViewById(R.id.txt_yymm)
+        imageButton = view.findViewById(R.id.imgbtn_calender)
+        swipe = view.findViewById(R.id.swipe)
 
         txtDate.text = SimpleDateFormat("yyyy년 MM월").format(Date())
         imageButton.setOnClickListener {
@@ -50,26 +58,30 @@ class MyDiary : Fragment() {
         }
 
         // get diary list
-        val date: String = SimpleDateFormat("yyyy-MM").format(Date())
-        var userId: String? = null
+        date = SimpleDateFormat("yyyy-MM").format(Date())
         UserApiClient.instance.me { user, error ->
             if (error != null) {
                 Log.d("mydiary", "사용자 정보 요청 실패", error)
             }
             else {
                 userId = user?.id?.toString()
-                userId?.let { getDiaryList(it, date) }
+                userId?.let { getDiaryList(it, date!!) }
             }
         }
 
         // swipe to refresh
         swipe.setOnRefreshListener {
             diaryList.clear()
-            userId?.let { getDiaryList(it, date) }
+            userId?.let { getDiaryList(it, date!!) }
             swipe.isRefreshing = false
         }
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        userId?.let { getDiaryList(it, date!!) }
     }
 
     private fun getDiaryList(userId: String, date: String) {

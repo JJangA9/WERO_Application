@@ -54,10 +54,12 @@ class DiaryPage : Fragment() {
         btnEdit = view.findViewById(R.id.btn_edit)
         btnDelete = view.findViewById(R.id.btn_delete)
 
+        // get data from server and set view items
         diaryId = arguments?.getInt("diaryId")!!
         getDiaryData()
         getReplyData()
 
+        // button
         btnEdit.setOnClickListener {
             val intent = Intent(activity, EditDiary::class.java).apply{
                 putExtra("txtDate", txtDate.text)
@@ -68,11 +70,18 @@ class DiaryPage : Fragment() {
         }
         btnDelete.setOnClickListener { deleteAlert() }
 
+        // swipe to refresh
         swipe.setOnRefreshListener {
             getReplyData()
             swipe.isRefreshing = false
         }
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getDiaryData()
+        getReplyData()
     }
 
     private fun getUserId() {

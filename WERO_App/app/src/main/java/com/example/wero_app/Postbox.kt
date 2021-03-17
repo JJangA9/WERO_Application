@@ -18,8 +18,9 @@ import retrofit2.Response
 
 class Postbox : Fragment() {
 
-    lateinit var mcontext: Context
-    var postList = arrayListOf<PostItem>()
+    private lateinit var mcontext: Context
+    private var postList = arrayListOf<PostItem>()
+    private var userId: String? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -32,10 +33,8 @@ class Postbox : Fragment() {
             savedInstanceState: Bundle?): View {
 
         val view = inflater.inflate(R.layout.postbox,container,false)
-
         val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipe)
 
-        var userId: String? = null
         // 사용자 정보 요청 (기본)
         UserApiClient.instance.me { user, error ->
             if (error != null) {
@@ -56,6 +55,12 @@ class Postbox : Fragment() {
         }
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        postList.clear()
+        userId?.let { getPostList(it) }
     }
 
     private fun getPostList(data: String) {
