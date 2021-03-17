@@ -14,6 +14,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.WERO_App">
 
+        <activity android:name=".EditDiary"/>
         <activity android:name=".Register"/>
         <activity android:name=".ReplyList" />
         <activity android:name=".WriteDiary" />

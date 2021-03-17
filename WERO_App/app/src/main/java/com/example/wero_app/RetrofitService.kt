@@ -22,6 +22,9 @@ interface RetrofitService {
     @POST("/reply")
     fun shareReply(@Body data: ReplyIdData) : Call<ServerResponse>
 
+    @PUT("/diary")
+    fun updateDiary(@Body data: DiaryItem) : Call<ServerResponse>
+
 
     @GET("/diary")
     fun getDiary(@Query("diaryId") diaryId: Int) : Call<JsonArrayResponse>
@@ -55,14 +58,14 @@ interface RetrofitService {
 }
 
 data class JoinData(var kakaoId: String)
-data class DiaryData(var userId: String?, var date: String, var content: String?, var isShared: Int)
+data class DiaryData(var userId: String?, var date: String, var content: String?, var isShared: Int?)
 data class ReplyData(var diaryId: Int, var userFromId: String?, val userToId: String, var replyDate: String, var content: String?)
 data class ReplyIdData(var replyId: Int)
 
 data class JsonArrayResponse(var result: JsonArray)
 data class ServerResponse(var code: Int, var message: String)
 
-data class DiaryItem(var diaryId: Int, var userId: String, var diaryDate: String, var content: String, var isShared: Int)
+data class DiaryItem(var diaryId: Int, var userId: String?, var diaryDate: String, var content: String, var isShared: Int?)
 data class ReplyItem(val replyId: Int, val diaryId: Int, val userFromId: String,
                      val userToId: String?, val replyDate: String, val content: String?, val reply: String)
 data class PostItem(val diaryId: Int, val userFromId: String, val userToId: String, val diaryDate: String?, val content: String?, val isShared: Int?)

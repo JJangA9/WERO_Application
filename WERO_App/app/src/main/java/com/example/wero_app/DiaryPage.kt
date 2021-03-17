@@ -3,6 +3,7 @@ package com.example.wero_app
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -57,7 +58,14 @@ class DiaryPage : Fragment() {
         getDiaryData()
         getReplyData()
 
-        btnEdit.setOnClickListener {  }
+        btnEdit.setOnClickListener {
+            val intent = Intent(activity, EditDiary::class.java).apply{
+                putExtra("txtDate", txtDate.text)
+                putExtra("txtContent", txtContent.text)
+                putExtra("diaryId", diaryId)
+            }
+            startActivity(intent)
+        }
         btnDelete.setOnClickListener { deleteAlert() }
 
         swipe.setOnRefreshListener {
