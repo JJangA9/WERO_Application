@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
             .addConverterFactory(GsonConverterFactory.create()).build()
     val service = retrofit.create(RetrofitService::class.java)
-    var kakaoId: String? = null
+    var userId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +40,9 @@ class MainActivity : AppCompatActivity() {
         init()
         replyListToDiary()
 
-        kakaoId = intent.getStringExtra("kakaoId")
-        if (kakaoId != null) {
-            Log.d("kakao", kakaoId!!)
+        userId = intent.getStringExtra("userId")
+        if (userId != null) {
+            Log.d("kakao", userId!!)
         }
         else {
             Log.d("kakao", "kakaoId is null")
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
             val intent = Intent(this, WriteDiary::class.java)
-            intent.putExtra("kakaoId", kakaoId)
+            intent.putExtra("kakaoId", userId)
             startActivity(intent)
         }
 

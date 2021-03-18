@@ -1,8 +1,11 @@
 package com.example.wero_app
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Paint
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
@@ -20,10 +23,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Login : AppCompatActivity() {
 
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var editor: SharedPreferences.Editor
+    private lateinit var kakaoId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPreferences = this.getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        if(!sharedPreferences.getString("userId", "").isNullOrBlank()) {
+            getUserId()
+        }
+
         setContentView(R.layout.login)
 
+/*
         val btnLogin = findViewById<Button>(R.id.btn_login)
         btnLogin.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -35,18 +49,8 @@ class Login : AppCompatActivity() {
             val registerIntent = Intent(this, Register::class.java)
             startActivity(registerIntent)
         }
-
-        var kakaoId: Long? = null
-        // 사용자 정보 요청 (기본)
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e("kakao", "사용자 정보 요청 실패", error)
-            }
-            else if (user != null) {
-                kakaoId = user.id
-            }
-        }
-
+*/
+        // sharedPreference 데이터가 사라졌거나, 처음 로그인하는 경우
         val btnKakao: ImageButton = findViewById(R.id.btn_kakao_login)
         btnKakao.setOnClickListener {
             // 로그인 공통 callback 구성
@@ -56,10 +60,8 @@ class Login : AppCompatActivity() {
                 } else if (token != null) {
                     Log.i("kakao", "로그인 성공 ${token.accessToken}")
 
-                    putData(JoinData(kakaoId.toString()))
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.putExtra("kakaoId", kakaoId.toString())
-                    startActivity(intent)
+                    getUserId()
+
                 }
             }
 
@@ -69,10 +71,31 @@ class Login : AppCompatActivity() {
             } else {
                 LoginClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
-
-
         }
 
+    }
+
+    private fun getUserId() {
+        // 사용자 정보 요청 (기본)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e("kakao", "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                kakaoId = user.id.toString()
+                if(sharedPreferences.getString("userId", "").isNullOrBlank()) {
+                    editor = sharedPreferences.edit()
+                    editor.putString("userId", kakaoId)
+                    editor.apply()
+
+                    putData(JoinData(kakaoId))
+                }
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("kakaoId", kakaoId)
+                startActivity(intent)
+                finish()
+            }
+        }
     }
 
     private fun putData(data: JoinData) {

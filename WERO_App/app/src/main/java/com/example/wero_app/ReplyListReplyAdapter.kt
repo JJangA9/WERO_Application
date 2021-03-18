@@ -9,6 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ReplyListReplyAdapter(val context: Context, private val replyRecycler : ArrayList<ReplyListRecyclerViewReplyItem>) : RecyclerView.Adapter<ReplyListReplyAdapter.Holder>()  {
 
@@ -30,6 +35,7 @@ class ReplyListReplyAdapter(val context: Context, private val replyRecycler : Ar
             intent.putExtra("fragType", 1)
             intent.putExtra("diaryId", replyRecycler[position].diaryId)
             context.startActivity(intent)
+            checkReply(DiaryIdData(replyRecycler[position].diaryId))
         }
         holder.bind(listener, replyRecycler[position], context)
     }
@@ -41,5 +47,22 @@ class ReplyListReplyAdapter(val context: Context, private val replyRecycler : Ar
             reply.text = replyItem.reply
             itemView.setOnClickListener(listener)
         }
+    }
+
+    private fun checkReply(data: DiaryIdData) {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://ec2-52-79-128-138.ap-northeast-2.compute.amazonaws.com:3000")
+            .addConverterFactory(GsonConverterFactory.create()).build()
+        val service = retrofit.create(RetrofitService::class.java)
+        service.checkReply(data).enqueue(object : Callback<ServerResponse> {
+            override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
+                Log.d("replylist", "get failure")
+            }
+
+            override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {
+                val msg = response.body()
+                Log.d("replylist", msg?.message.toString())
+            }
+        })
     }
 }

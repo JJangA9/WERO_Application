@@ -25,6 +25,9 @@ interface RetrofitService {
     @PUT("/diary")
     fun updateDiary(@Body data: DiaryItem) : Call<ServerResponse>
 
+    @PUT("/reply/check")
+    fun checkReply(@Body data: DiaryIdData) : Call<ServerResponse>
+
 
     @GET("/diary")
     fun getDiary(@Query("diaryId") diaryId: Int) : Call<JsonArrayResponse>
@@ -61,6 +64,7 @@ data class JoinData(var kakaoId: String)
 data class DiaryData(var userId: String?, var date: String, var content: String?, var isShared: Int?)
 data class ReplyData(var diaryId: Int, var userFromId: String?, val userToId: String, var replyDate: String, var content: String?)
 data class ReplyIdData(var replyId: Int)
+data class DiaryIdData(var diaryId: Int)
 
 data class JsonArrayResponse(var result: JsonArray)
 data class ServerResponse(var code: Int, var message: String)
