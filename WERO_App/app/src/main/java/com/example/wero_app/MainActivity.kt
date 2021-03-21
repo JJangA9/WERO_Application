@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             Log.d("kakao", userId!!)
         }
         else {
-            Log.d("kakao", "kakaoId is null")
+            Log.d("kakao", "userId is null")
         }
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)

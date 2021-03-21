@@ -29,13 +29,12 @@ class Login : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.login)
 
         sharedPreferences = this.getSharedPreferences("Prefs", Context.MODE_PRIVATE)
         if(!sharedPreferences.getString("userId", "").isNullOrBlank()) {
             getUserId()
         }
-
-        setContentView(R.layout.login)
 
 /*
         val btnLogin = findViewById<Button>(R.id.btn_login)
@@ -90,8 +89,9 @@ class Login : AppCompatActivity() {
 
                     putData(JoinData(kakaoId))
                 }
+                Log.d("kakao", kakaoId)
                 val intent = Intent(this, MainActivity::class.java)
-                intent.putExtra("kakaoId", kakaoId)
+                intent.putExtra("userId", kakaoId)
                 startActivity(intent)
                 finish()
             }
