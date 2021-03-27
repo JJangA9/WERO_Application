@@ -44,6 +44,7 @@ class ReplyList : AppCompatActivity() {
         swipe.setOnRefreshListener {
             contentList.clear()
             replyItemList.clear()
+            diaryIdList.clear()
             userId?.let { getReplyList(it) }
             swipe.isRefreshing = false
         }
