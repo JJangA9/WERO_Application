@@ -68,7 +68,7 @@ class EveryWero : Fragment() {
                         val obj: JsonObject = arr.get(i) as JsonObject
                         val replyId = obj.get("reply_id").asInt
                         val userId = obj.get("user_from_id").asString
-                        val userName = obj.get("user_name").asString
+                        val userName: String? = obj.get("user_name").asString
                         val content = obj.get("content").asString
                         val heart = obj.get("heart").asInt
                         weroList.add(WeroItem(replyId, userId, userName, content, heart))

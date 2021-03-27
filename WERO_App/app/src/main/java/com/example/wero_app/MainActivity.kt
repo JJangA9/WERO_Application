@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             Log.d("kakao", "userId is null")
+            getUserId()  // 콜백이라 의미가 있는지 모르겠음
         }
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -110,6 +111,17 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
+    private fun getUserId() {
+        // 사용자 정보 요청 (기본)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e("kakao", "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                userId = user.id.toString()
+            }
+        }
+    }
 
     fun changeFragmentHasBackStack(id: Int, frag: Fragment) {
         supportFragmentManager.beginTransaction()

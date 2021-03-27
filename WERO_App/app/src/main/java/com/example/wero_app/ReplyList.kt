@@ -13,11 +13,13 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class ReplyList : AppCompatActivity() {
 
     var contentList = arrayListOf<ReplyListRecyclerViewContentItem>()
     var replyItemList = arrayListOf<ReplyItem>()
+    val diaryIdList = arrayListOf<Int>()
 
     lateinit var swipe: SwipeRefreshLayout
 
@@ -63,7 +65,6 @@ class ReplyList : AppCompatActivity() {
                 if (list != null) {
                     Log.d("replylist", arr.toString())
 
-                    var prev: Int = -1;
                     replyItemList.clear()
                     for(i in 0 until arr!!.size()){
                         val obj: JsonObject = arr.get(i) as JsonObject
@@ -76,9 +77,9 @@ class ReplyList : AppCompatActivity() {
                         val reply = obj.get("reply").asString
                         replyItemList.add(ReplyItem(replyId, diaryId, userFromId, userToId, replyDate, content, reply))
 
-                        if(i > 0 && prev == diaryId) continue
+                        if(diaryIdList.contains(diaryId)) continue
+                        diaryIdList.add(diaryId)
                         contentList.add(ReplyListRecyclerViewContentItem(diaryId, content))
-                        prev = diaryId
                     }
                     setRecyclerView()
                 }
