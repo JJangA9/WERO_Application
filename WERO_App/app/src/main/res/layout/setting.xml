@@ -11,8 +11,6 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +20,6 @@
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,7 +35,7 @@
             android:id="@+id/profileSetting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="프로필 설정"
+            android:text="@string/profile_setting"
             android:textSize="12sp"
             android:textColor="#9A9A9A"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,22 +45,24 @@
             android:id="@+id/nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="닉네임"
+            android:text="@string/nickname"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/profileSetting"
             app:layout_constraintStart_toStartOf="parent"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/font"
-            android:text="수정"
+            android:text="@string/edit"
             android:textColor="#03A9F4"
+            android:textSize="15sp"
             android:background="#00ff0000"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="@id/nickname"
             app:layout_constraintTop_toBottomOf="@id/profileSetting" />
@@ -72,7 +71,7 @@
             android:id="@+id/nicknameTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="고민들어줘"
+            android:text="@string/null_name"
             android:textSize="15sp"
             android:textColor="#5C5C5C"
             android:layout_marginTop="10dp"
@@ -82,7 +81,7 @@
         <View
             android:id="@+id/firstLine"
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="#9A9A9A"
             android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@id/nicknameTxt"
@@ -93,7 +92,7 @@
             android:id="@+id/alarmSettingTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="알림 설정"
+            android:text="@string/notification_setting"
             android:textSize="12sp"
             android:textColor="#9A9A9A"
             android:layout_marginTop="25dp"
@@ -111,9 +110,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="앱 푸시 알림"
+                android:paddingTop="6dp"
+                android:text="@string/app_push"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="15sp"/>
 
             <View
                 android:layout_width="0dp"
@@ -128,57 +128,57 @@
 
         </LinearLayout>
 
+<!--        <View-->
+<!--            android:id="@+id/secondLine"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="#9A9A9A"-->
+<!--            android:layout_marginTop="15dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/alarmSettingLayout"-->
+<!--            app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/backgroundColorTxt"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/background_setting"-->
+<!--            android:textSize="12sp"-->
+<!--            android:textColor="#9A9A9A"-->
+<!--            android:layout_marginTop="25dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/secondLine"-->
+<!--            app:layout_constraintStart_toStartOf="parent"/>-->
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/backgroundSettingLayout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/backgroundColorTxt"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="배경 색상"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="18sp"/>-->
+
+<!--        </LinearLayout>-->
+
         <View
-            android:id="@+id/secondLine"
+            android:id="@+id/thirdLine"
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="#9A9A9A"
             android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@id/alarmSettingLayout"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/backgroundColorTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="배경 설정"
-            android:textSize="12sp"
-            android:textColor="#9A9A9A"
-            android:layout_marginTop="25dp"
-            app:layout_constraintTop_toBottomOf="@id/secondLine"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <LinearLayout
-            android:id="@+id/backgroundSettingLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/backgroundColorTxt"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="배경 색상"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/thirdLine"
-            android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:background="#9A9A9A"
-            android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/backgroundSettingLayout"
-            app:layout_constraintStart_toStartOf="parent"/>
-
-        <TextView
             android:id="@+id/WEROInfoTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="WERO 정보"
+            android:text="@string/app_info"
             android:textSize="12sp"
             android:textColor="#9A9A9A"
             android:layout_marginTop="25dp"
@@ -201,9 +201,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="WERO 버전"
+                    android:text="@string/app_version"
                     android:textColor="@color/black"
-                    android:textSize="18sp"/>
+                    android:textSize="15sp"/>
 
                 <View
                     android:layout_width="0dp"
@@ -213,45 +213,45 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="v1.0"
+                    android:text="@string/version"
                     android:textColor="#9A9A9A"
                     android:textSize="18sp"
                     android:layout_marginEnd="5dp"/>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="20dp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_marginTop="20dp">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="개인정보 처리방침"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="개인정보 처리방침"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="15sp"/>-->
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="0dp"-->
+<!--                    android:layout_weight="1" />-->
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginEnd="5dp"
-                    android:src="@drawable/information"/>
+<!--                <ImageView-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="30dp"-->
+<!--                    android:layout_marginEnd="5dp"-->
+<!--                    android:src="@drawable/information"/>-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
         </LinearLayout>
 
         <View
             android:id="@+id/fourthLine"
             android:layout_width="wrap_content"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="#9A9A9A"
             android:layout_marginTop="15dp"
             app:layout_constraintTop_toBottomOf="@id/WEROInfoLayout"
@@ -269,9 +269,10 @@
                 android:id="@+id/logoutTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="로그아웃"
+                android:paddingTop="6dp"
+                android:text="@string/logout"
                 android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textSize="15sp"/>
 
             <View
                 android:layout_width="0dp"

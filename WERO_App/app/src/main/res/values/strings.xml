@@ -35,6 +35,16 @@
     <string name="report">신고</string>
 
     <string name="settings">설정</string>
+    <string name="profile_setting">프로필 세팅</string>
+    <string name="nickname">닉네임</string>
+    <string name="notification_setting">알림 설정</string>
+    <string name="app_push">앱 푸시 알림</string>
+    <string name="background_setting">배경 설정</string>
+    <string name="app_info">WERO 정보</string>
+    <string name="app_version">WERO 버전</string>
+    <string name="version">v1.0</string>
+    <string name="logout">로그아웃</string>
+    <string name="edit_nickname">닉네임 수정</string>
 
     <string name="reply_list">답장이 왔어요!</string>
 
