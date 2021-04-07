@@ -22,6 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
+    lateinit var activity: MainActivity
+
     private var fragType = 0;
     private lateinit var tabLayout: TabLayout
     private lateinit var viewpager2 : ViewPager2
@@ -37,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        activity = this
+
         init()
         replyListToDiary()
 

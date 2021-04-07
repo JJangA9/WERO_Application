@@ -2,13 +2,18 @@ package com.example.wero_app
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Switch
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -59,6 +64,18 @@ class Setting : AppCompatActivity() {
     }
 
     private fun logout() {
+        // go initial activity (login activity)
+        val intent = Intent(this, Login::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        ActivityCompat.finishAffinity(this)
+
+        // remove all data
+        sharedPreferences = this.getSharedPreferences("Prefs", Context.MODE_PRIVATE)
+        editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+
 
     }
     private fun getUserId() {
