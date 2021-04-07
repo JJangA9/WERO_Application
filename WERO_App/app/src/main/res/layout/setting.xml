@@ -32,7 +32,7 @@
         tools:context=".Setting">
 
         <TextView
-            android:id="@+id/profileSetting"
+            android:id="@+id/txt_profile_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/profile_setting"
@@ -42,14 +42,14 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/nickname"
+            android:id="@+id/txt_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/nickname"
             android:textColor="@color/black"
             android:textSize="15sp"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/profileSetting"
+            app:layout_constraintTop_toBottomOf="@id/txt_profile_setting"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
@@ -64,18 +64,18 @@
             android:textSize="15sp"
             android:background="#00ff0000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintRight_toRightOf="@id/nickname"
-            app:layout_constraintTop_toBottomOf="@id/profileSetting" />
+            app:layout_constraintRight_toRightOf="@id/txt_nickname"
+            app:layout_constraintTop_toBottomOf="@id/txt_profile_setting" />
 
         <TextView
-            android:id="@+id/nicknameTxt"
+            android:id="@+id/txt_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/null_name"
             android:textSize="15sp"
             android:textColor="#5C5C5C"
             android:layout_marginTop="10dp"
-            app:layout_constraintTop_toBottomOf="@id/nickname"
+            app:layout_constraintTop_toBottomOf="@id/txt_nickname"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <View
@@ -84,12 +84,12 @@
             android:layout_height="1dp"
             android:background="#9A9A9A"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/nicknameTxt"
+            app:layout_constraintTop_toBottomOf="@id/txt_name"
             app:layout_constraintStart_toStartOf="parent"/>
 
 
         <TextView
-            android:id="@+id/alarmSettingTxt"
+            android:id="@+id/txt_alarm_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/notification_setting"
@@ -103,7 +103,7 @@
             android:id="@+id/alarmSettingLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/alarmSettingTxt"
+            app:layout_constraintTop_toBottomOf="@id/txt_alarm_setting"
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
@@ -121,7 +121,7 @@
                 android:layout_weight="1" />
 
             <Switch
-                android:id="@+id/alarmSwitch"
+                android:id="@+id/switch_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"/>
@@ -175,7 +175,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/WEROInfoTxt"
+            android:id="@+id/txt_wero_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_info"
@@ -189,7 +189,7 @@
             android:id="@+id/WEROInfoLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/WEROInfoTxt"
+            app:layout_constraintTop_toBottomOf="@id/txt_wero_info"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
@@ -266,7 +266,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/logoutTxt"
+                android:id="@+id/txt_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="6dp"
@@ -280,6 +280,7 @@
                 android:layout_weight="1" />
 
             <ImageView
+                android:id="@+id/img_logout"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/door"/>

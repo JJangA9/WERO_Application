@@ -47,6 +47,9 @@ interface RetrofitService {
     @GET("/wero/list")
     fun getWeroList() : Call<JsonArrayResponse>
 
+    @GET("/name")
+    fun getName(@Query("userId") userId: String) : Call<JsonArrayResponse>
+
 
     @DELETE("/post")
     fun deletePost(@Query("diaryId") diaryId: Int, @Query("userToId") userToId: String) : Call<ServerResponse>
