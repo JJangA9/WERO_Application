@@ -75,6 +75,6 @@ data class ServerResponse(var code: Int, var message: String)
 data class DiaryItem(var diaryId: Int, var userId: String?, var diaryDate: String, var content: String, var isShared: Int?)
 data class ReplyItem(val replyId: Int, val diaryId: Int, val userFromId: String,
                      val userToId: String?, val replyDate: String, val content: String?, val reply: String)
-data class PostItem(val diaryId: Int, val userFromId: String, val userToId: String, val diaryDate: String?, val content: String?, val isShared: Int?)
+data class PostItem(val diaryId: Int, val userFromId: String, val userToId: String, val userName: String, val diaryDate: String?, val content: String?, val isShared: Int?)
 data class WeroItem(val replyId: Int, val userId: String, val userName: String?, val content: String, val heart: Int)
 

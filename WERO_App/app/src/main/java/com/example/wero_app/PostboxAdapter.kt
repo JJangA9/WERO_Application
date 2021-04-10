@@ -51,7 +51,8 @@ class PostboxAdapter(val context: Context, private val postRecycler : ArrayList<
         private val content = itemView.findViewById<TextView>(R.id.txt_content)
 
         fun bind(listener: View.OnClickListener, longListener: View.OnLongClickListener, postBoxItem : PostItem, context: Context) {
-            txtName.text = postBoxItem.userFromId
+            if(postBoxItem.userName == "null") txtName.text = "익명"
+            else txtName.text = postBoxItem.userName
             content.text = postBoxItem.content
             itemView.setOnClickListener(listener)
             itemView.setOnLongClickListener(longListener)

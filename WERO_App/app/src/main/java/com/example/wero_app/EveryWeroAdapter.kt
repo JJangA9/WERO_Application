@@ -27,7 +27,8 @@ class EveryWeroAdapter(val context: Context, private val weroRecycler : ArrayLis
         private val heartNum = itemView.findViewById<TextView>(R.id.txt_heart_number)
 
         fun bind(postBoxItem : WeroItem, context: Context) {
-            userName.text = postBoxItem.userName
+            if(postBoxItem.userName == "null") userName.text = "익명"
+            else userName.text = postBoxItem.userName
             content.text = postBoxItem.content
             heartNum.text = postBoxItem.heart.toString()
         }

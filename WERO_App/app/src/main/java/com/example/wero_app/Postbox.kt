@@ -82,10 +82,11 @@ class Postbox : Fragment() {
                         val diaryId = obj.get("diary_id").asInt
                         val userFromId = obj.get("user_from_id").asString
                         val userToId = obj.get("user_to_id").asString
+                        val userName = obj.get("user_name").asString
                         val diaryDate = obj.get("diary_date").asString.substring(0, 10)
                         val content = obj.get("content").asString
                         val isShared = obj.get("is_shared").asInt
-                        postList.add(PostItem(diaryId, userFromId, userToId, diaryDate, content, isShared))
+                        postList.add(PostItem(diaryId, userFromId, userToId, userName, diaryDate, content, isShared))
                     }
                     setRecyclerView()
                 }
