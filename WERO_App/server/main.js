@@ -10,15 +10,6 @@ app.listen(3000, '0.0.0.0', function () {
 	console.log('서버 실행 중...');
 });
 
-var connection = mysql.createConnection({
-	host: "dbinstance.ciqxntbxyvab.us-east-2.rds.amazonaws.com",
-	user: "xeaquz",
-	database: "wero",
-	password: "dnlfhvkdlxld",
-	multipleStatements: "true",
-	port: 3306
-});
-
 app.post('/user/join', function (req, res) {
 	console.log(req.body);
 	var kakaoId = req.body.kakaoId;
