@@ -72,7 +72,7 @@ class WriteDiary : AppCompatActivity() {
         val service = retrofit.create(RetrofitService::class.java)
         service.sendPost(data).enqueue(object: Callback<ServerResponse> {
             override fun onFailure(call: Call<ServerResponse>, t: Throwable) {
-                Toast.makeText(this@WriteDiary, "전송 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@WriteDiary, "전송 실패", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<ServerResponse>, response: Response<ServerResponse>) {

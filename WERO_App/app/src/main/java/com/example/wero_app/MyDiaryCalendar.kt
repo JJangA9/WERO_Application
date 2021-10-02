@@ -79,14 +79,17 @@ class MyDiaryCalendar : Fragment() {
             }
             else {
                 userId = user?.id?.toString()
-                userId?.let { getDiaryList(it, date) }
+                userId?.let {
+                    diaryList.clear()
+                    getDiaryList(it, date)
+                }
             }
         }
 
 
         // Create red dot (today)
         val activity = activity as MainActivity
-        calendarView.addDecorators(EventDecorator(Color.RED, activity, dotDates()))
+        //calendarView.addDecorators(EventDecorator(Color.RED, activity, dotDates()))
 
         // Date selected listener
         calendarView.setOnDateChangedListener { widget, selectedDate, selected ->
@@ -103,15 +106,18 @@ class MyDiaryCalendar : Fragment() {
             val dateText: String
             if(month < 10) dateText = "$year-0$month"
             else dateText = "$year-$month"
-            userId?.let { getDiaryList(it, dateText) }
+            userId?.let {
+                diaryList.clear()
+                getDiaryList(it, dateText)
+            }
         }
 
         return view
     }
 
-    private fun setRecyclerView() {
+    private fun setRecyclerView(diaryList: ArrayList<DiaryItem>) {
         //Recycler view
-        val mAdapter = MyDiaryCalendarAdapter(mcontext, diaryOneDateList)
+        val mAdapter = MyDiaryCalendarAdapter(mcontext, diaryList)
         val mRecyclerview = view?.findViewById<RecyclerView>(R.id.recycler_bottom)
         mRecyclerview?.adapter = mAdapter
 
@@ -120,7 +126,7 @@ class MyDiaryCalendar : Fragment() {
         mRecyclerview?.setHasFixedSize(true)
     }
 
-    //Get diary list (day)
+    //Set diary list (day)
     private fun setDiaryList(selectedDate: Int) {
         diaryOneDateList.clear()
         for(i in 0 until diaryList.size) {
@@ -130,21 +136,21 @@ class MyDiaryCalendar : Fragment() {
                 diaryOneDateList.add(diaryList[i])
             }
         }
-        setRecyclerView()
+        setRecyclerView(diaryOneDateList)
     }
 
     private fun getDiaryList(userId: String, date: String) {
         val service = (activity as MainActivity).service
         service.getDiaryList(userId, date).enqueue(object : Callback<JsonArrayResponse> {
             override fun onFailure(call: Call<JsonArrayResponse>, t: Throwable) {
-                Log.d("mydiary", "get failure")
+                Log.d("calendar", "get failure")
             }
 
             override fun onResponse(call: Call<JsonArrayResponse>, response: Response<JsonArrayResponse>) {
                 val list = response.body()
                 val arr = list?.result
                 if (list != null) {
-                    Log.d("mydiary", arr.toString())
+                    Log.d("calendar", arr.toString())
 
                     diaryList.clear()
                     for(i in 0 until arr!!.size()){
@@ -159,6 +165,7 @@ class MyDiaryCalendar : Fragment() {
 
                         //setDiaryList(SimpleDateFormat("dd").format(Date()))
                     }
+                    setRecyclerView(diaryList)
                 }
                 else {
                     Log.d("mydiary", "null")
