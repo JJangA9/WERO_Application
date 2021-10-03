@@ -68,7 +68,7 @@ class DiaryPageAdapter(val context: Context, private val replyRecycler : ArrayLi
         alertDialog.show()
 
         btnShare.setOnClickListener {
-            Toast.makeText(context, "gg", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "공유 완료", Toast.LENGTH_SHORT).show()
             shareReply(ReplyIdData(replyId))
             alertDialog.dismiss()
         }

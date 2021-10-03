@@ -36,12 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginStart="2dp"
-            android:text="님의 위로"
+            android:text="의 위로"
             android:textSize="15sp"
             android:textColor="@color/black"
             android:layout_toEndOf="@id/txt_nickname"
             android:layout_alignBottom="@+id/img_post"/>
-
+<!--
         <TextView
             android:id="@+id/txt_heart_number"
             android:layout_width="wrap_content"
@@ -61,6 +61,7 @@
             android:background="@drawable/heart"
             android:layout_alignBottom="@+id/txt_nickname"
             android:layout_alignParentEnd="true"/>
+            -->
 
         <TextView
             android:id="@+id/txt_wero"

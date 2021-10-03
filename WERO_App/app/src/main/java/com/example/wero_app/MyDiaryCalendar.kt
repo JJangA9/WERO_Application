@@ -104,6 +104,9 @@ class MyDiaryCalendar : Fragment() {
             val year = selectedDate.year
             val month = selectedDate.month + 1
             val dateText: String
+
+            txtDate.text = "날짜를 선택해 주세요!"
+
             if(month < 10) dateText = "$year-0$month"
             else dateText = "$year-$month"
             userId?.let {

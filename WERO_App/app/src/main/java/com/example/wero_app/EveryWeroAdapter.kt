@@ -24,13 +24,14 @@ class EveryWeroAdapter(val context: Context, private val weroRecycler : ArrayLis
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val userName = itemView.findViewById<TextView>(R.id.txt_nickname)
         private val content = itemView.findViewById<TextView>(R.id.txt_wero)
-        private val heartNum = itemView.findViewById<TextView>(R.id.txt_heart_number)
+        //private val heartNum = itemView.findViewById<TextView>(R.id.txt_heart_number)
 
         fun bind(postBoxItem : WeroItem, context: Context) {
             if(postBoxItem.userName == "null") userName.text = "익명"
-            else userName.text = postBoxItem.userName
+            else userName.text = "익명"
+            //else userName.text = postBoxItem.userName
             content.text = postBoxItem.content
-            heartNum.text = postBoxItem.heart.toString()
+            //heartNum.text = postBoxItem.heart.toString()
         }
     }
 }

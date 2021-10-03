@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/view_line"
             android:maxLines="2"
-            android:text="귀찮은 것 뿐이잖아 그렇게도 말할 수 있지 트수들 재우라고? 많이 재웠어 나는 더롱다크로.. 할만큼 했어요 사랑했지만~~~~"
+            android:text=""
             android:lineSpacingExtra="5dp"
             android:padding="15dp"
             android:textSize="12sp"/>
